@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "cleanUrls": true,
+  "rewrites": [
+    { "source": "/", "destination": "/landing.html" },
+    { "source": "/vendas", "destination": "/landing.html" },
+    { "source": "/painel", "destination": "/index.html" },
+    { "source": "/app", "destination": "/index.html" }
+  ]
+}
