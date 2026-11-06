@@ -1,6 +1,74 @@
-﻿<!doctype html>
+<!doctype html>
+<!-- ==========================================================================
+     JURISPASS - PLATAFORMA DE ESTUDOS JURÍDICOS (SAAS HIGH-PERFORMANCE)
+     ARQUITETURA MODULAR & SEPARAÇÃO LIMPA DE RESPONSABILIDADES
+     ==========================================================================
+     ÍNDICE DE NAVEGAÇÃO RÁPIDA (Use Ctrl+F para saltar diretamente para a seção):
+     
+     [PARTE 1] CABEÇALHO & METADADOS
+       → [HEAD:METAS] ......... Metatags, viewport, fontes web Google
+     
+     [PARTE 2] FOLHA DE ESTILOS MODULAR (CSS)
+       → [CSS:01-TOKENS] ...... Design tokens, paleta de cores e temas (Dark / Light)
+       → [CSS:02-BASE] ........ Reset global, tipografia e estilos essenciais
+       → [CSS:03-SHELL] ....... Layout do sistema (Sidebar, Header, Banner do Plano)
+       → [CSS:04-COMPONENTS] .. Componentes globais (Cards, Botões, Badges, Modais, Toasts)
+       → [CSS:05-VIEWS] ....... Estilos dedicados (Flashcards 3D, Simulado, Fluxograma, Mnemônicos, Planos)
+       → [CSS:06-RESPONSIVE] .. Animações, transições suaves e responsividade Mobile/Tablet
+     
+     [PARTE 3] ESTRUTURA HTML SEMÂNTICA (MAIS DE HTML)
+       → [HTML:01-OVERLAYS] ... Ambient background glow, canvas de confetti e toasts
+       → [HTML:02-AUTH] ....... Modal de Login, Primeiro Acesso e Cadastro de Alunos
+       → [HTML:03-SHELL] ...... Banner do Plano, Sidebar de Navegação e Top Header
+       → [HTML:04-VIEWS] ...... Painéis de Conteúdo Declarativo em HTML:
+           * [VIEW-HTML:HOME] ........... Visão Geral, Boas-vindas, KPIs e Atalhos
+           * [VIEW-HTML:CODIGOS] ........ Vade Mecum Digital & Legislação Esquematizada
+           * [VIEW-HTML:MATERIAS] ....... Catálogo Geral das 7 Disciplinas Jurídicas
+           * [VIEW-HTML:MATERIA-MODS] ... Módulos e Seções da Disciplina Selecionada
+           * [VIEW-HTML:MODULO-AULA] .... Visualizador de Conteúdo e Aulas do Módulo
+           * [VIEW-HTML:ARVORE] ......... Árvore Interativa de Recursos & Nulidades (Fluxograma)
+           * [VIEW-HTML:MNEMONICOS] ..... Mural de Macetes, Mnemônicos e Súmulas
+           * [VIEW-HTML:FLASHCARDS] ..... Deck Interativo de Flashcards 3D com Flip Motion
+           * [VIEW-HTML:QUESTOES] ....... Simulado Estilo OAB com Gabarito Comentado
+           * [VIEW-HTML:REVISAO] ........ Caderno de Dúvidas Salvas & Revisão Inteligente
+           * [VIEW-HTML:PLANOS] ......... Minha Assinatura, Cotas, Garantia e Gestão
+           * [VIEW-HTML:CONFIG] ......... Configurações de Aparência, Som e Gestão de Alunos
+           * [VIEW-HTML:BUSCA] .......... Mecanismo de Busca Global de Artigos e Aulas
+     
+     [PARTE 4] BANCO DE DADOS & CONTEÚDO ACADÊMICO (JS DATA)
+       → [DATA:01-MATERIAS] ... MATERIAS_DIREITO (Base completa das disciplinas)
+       → [DATA:02-ARVORE] ..... FLUXOGRAMA_RECURSOS (Ritos, decisões e recursos penais)
+       → [DATA:03-MNEMONICOS] . MNEMONICOS (Macetes e regras jurídicas de memorização)
+       → [DATA:04-CARDS] ...... FLASHCARDS (Baralho de questões rápidas com fundamentação)
+       → [DATA:05-QUESTOES] ... QUESTOES (Banco de questões estilo 1ª Fase OAB)
+     
+     [PARTE 5] CORE, ESTADO & SERVIÇOS (JS CORE)
+       → [CORE:01-ICONS] ...... SVG Icons Factory (Vetorização limpa Apple/Linear)
+       → [CORE:02-FIREBASE] ... Integração Cloud Firebase (Compat Auth & Firestore)
+       → [CORE:03-STATE] ...... Gerenciamento de Estado Reativo & LocalStorage
+       → [CORE:04-AUDIO] ...... Síntese Web Audio (Beeps, cliques táteis e celebração)
+       → [CORE:05-AUTH] ....... Validação de Acesso, Onboarding e Segurança de Pagamento
+     
+     [PARTE 6] CONTROLADORES DE TELA (VIEW CONTROLLERS)
+       → [CTRL:01-HOME] ....... Renderizador do Painel Principal
+       → [CTRL:02-CODIGOS] .... Controlador de Códigos & Legislação
+       → [CTRL:03-MATERIAS] ... Controlador do Catálogo e Leitor de Aulas
+       → [CTRL:04-ARVORE] ..... Controlador do Fluxograma Interativo de Recursos
+       → [CTRL:05-MNEMONICOS] . Controlador do Mural de Macetes
+       → [CTRL:06-FLASHCARDS] . Controlador do Deck de Flashcards 3D
+       → [CTRL:07-QUESTOES] ... Controlador do Simulado OAB & Resoluções
+       → [CTRL:08-REVISAO] .... Controlador do Caderno de Dúvidas
+       → [CTRL:09-PLANOS] ..... Controlador da Assinatura e Cotas
+       → [CTRL:10-CONFIG] ..... Controlador de Configurações e Gestão Admin
+       → [CTRL:11-BUSCA] ...... Controlador da Busca Global Instantânea
+     
+     [PARTE 7] ROTEAMENTO & BOOTSTRAP (JS APP)
+       → [APP:ROUTER] ......... Roteador Dinâmico por Hash (#/)
+       → [APP:INIT] ........... Inicialização do Sistema, Verificação de Sessão e Eventos
+     ========================================================================== -->
 <html lang="pt-BR">
 <head>
+  <!-- [HEAD:METAS] Metadados Principais & Fontes Web -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, maximum-scale=5">
   <title>JurisPass - Plataforma de Estudos Jurídicos</title>
@@ -8,7 +76,14 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <!-- ==========================================================================
+       [PARTE 2] FOLHA DE ESTILOS MODULAR DA PLATAFORMA (CSS)
+       ========================================================================== -->
   <style>
+/* ==========================================================================
+   [CSS:01-TOKENS] DESIGN TOKENS, VARIÁVEIS CSS & PALETAS DE CORES
+   ========================================================================== */
     :root {
       --bg: #090b14;
       --bg-surface: rgba(18, 22, 38, 0.75);
@@ -1776,22 +1851,23 @@
       }
     }
 
-</style>
+
+
+  </style>
+
   <!-- Firebase App & Services (Official Google CDN - Compat SDK) -->
   <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
 </head>
+
 <body>
+  <!-- [HTML:01-OVERLAYS] Iluminação Ambiente, Confetti & Notificações Toast -->
   <div id="ambient-bg"></div>
   <canvas id="confetti-canvas"></canvas>
-
-  <!-- SaaS Application Wrapper -->
-  <div class="saas-app">
-    <!-- Toast Notification Container -->
   <div id="toast-container" class="toast-container"></div>
 
-  <!-- Modal de Cadastro / Primeiro Acesso / Login -->
+  <!-- [HTML:02-AUTH] Modal de Login, Primeiro Acesso & Cadastro de Alunos -->
   <div id="auth-modal" class="auth-modal-overlay">
     <div class="auth-modal-card">
       <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:0.75rem">
@@ -1864,10 +1940,9 @@
     </div>
   </div>
 
-  <!-- SaaS Application Wrapper -->
+  <!-- [HTML:03-SHELL] Estrutura Principal da Plataforma SaaS -->
   <div class="saas-app">
-    <!-- Top Plan Notification Banner -->
-    <div class="top-plan-banner">
+        <div class="top-plan-banner">
       <div class="top-plan-inner">
         <span>Ambiente Ativo: <strong id="banner-plan-name">Plano Pro</strong> — <span id="banner-dias-restantes">30 dias restantes</span>.</span>
         <a href="#/planos" class="banner-plan-link" onclick="navigate('#/planos')">Detalhes da Assinatura</a>
@@ -1977,14 +2052,131 @@
         </header>
 
         <!-- Main View Container -->
-        <main id="app" class="saas-page-content"></main>
+
+        <!-- [HTML:04-VIEWS] Telas Declarativas da Aplicação (MAIS DE HTML!) -->
+        <main id="app" class="saas-page-content">
+
+        <!-- ====================================================================
+             [VIEW-HTML:HOME] TELA 01: VISÃO GERAL / PAINEL PRINCIPAL
+             ==================================================================== -->
+        <section id="view-home" class="saas-view-pane">
+          <!-- Cabeçalho do Painel -->
+          <div class="view-header-block" style="margin-bottom: 1.8rem;">
+            <div style="display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:1rem">
+              <div>
+                <h1 style="font-size:clamp(1.8rem, 3.8vw, 2.4rem); font-weight:800; margin-bottom:0.25rem">
+                  Olá, Estudante
+                </h1>
+                <p style="font-size:0.95rem; color:var(--tx-muted); margin:0">
+                  Seu ambiente inteligente de preparação jurídica para a OAB e Concursos.
+                </p>
+              </div>
+              <div style="display:flex; align-items:center; gap:0.6rem">
+                <button class="btn-topic-action" style="padding:0.45rem 1rem" onclick="navigate('#/materias')">
+                  Catálogo de Matérias
+                </button>
+                <button class="btn-fc-flip" style="height:38px; padding:0 1.25rem; font-size:0.86rem" onclick="navigate('#/questoes')">
+                  Praticar Simulado
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="kpi-row" style="margin-bottom: 2rem;"></div>
+        </section>
+
+        <!-- ====================================================================
+             [VIEW-HTML:CODIGOS] TELA 02: CÓDIGOS & VADE MECUM DIGITAL
+             ==================================================================== -->
+        <section id="view-codigos" class="saas-view-pane" style="display:none"></section>
+
+        <!-- ====================================================================
+             [VIEW-HTML:MATERIAS] TELA 03: CATÁLOGO GERAL DE MATÉRIAS
+             ==================================================================== -->
+        <section id="view-materias" class="saas-view-pane" style="display:none"></section>
+
+        <!-- ====================================================================
+             [VIEW-HTML:MATERIA-MODS] TELA 04: MÓDULOS DA MATÉRIA SELECIONADA
+             ==================================================================== -->
+        <section id="view-materia-modulos" class="saas-view-pane" style="display:none"></section>
+
+        <!-- ====================================================================
+             [VIEW-HTML:MODULO-AULA] TELA 05: CONTEÚDO DA AULA / TÓPICO
+             ==================================================================== -->
+        <section id="view-modulo-aula" class="saas-view-pane" style="display:none"></section>
+
+        <!-- ====================================================================
+             [VIEW-HTML:ARVORE] TELA 06: ÁRVORE DE RECURSOS (FLUXOGRAMA)
+             ==================================================================== -->
+        <section id="view-arvore" class="saas-view-pane" style="display:none"></section>
+
+        <!-- ====================================================================
+             [VIEW-HTML:MNEMONICOS] TELA 07: MURAL DE MNEMÔNICOS & MACETES
+             ==================================================================== -->
+        <section id="view-mnemonicos" class="saas-view-pane" style="display:none"></section>
+
+        <!-- ====================================================================
+             [VIEW-HTML:FLASHCARDS] TELA 08: DECK DE FLASHCARDS 3D
+             ==================================================================== -->
+        <section id="view-flashcards" class="saas-view-pane" style="display:none"></section>
+
+        <!-- ====================================================================
+             [VIEW-HTML:QUESTOES] TELA 09: SIMULADO ESTILO OAB (QUESTÕES)
+             ==================================================================== -->
+        <section id="view-questoes" class="saas-view-pane" style="display:none"></section>
+
+        <!-- ====================================================================
+             [VIEW-HTML:REVISAO] TELA 10: DÚVIDAS SALVAS PARA REVISÃO
+             ==================================================================== -->
+        <section id="view-revisao" class="saas-view-pane" style="display:none"></section>
+
+        <!-- ====================================================================
+             [VIEW-HTML:PLANOS] TELA 11: MINHA ASSINATURA & PLANO ATUAL
+             ==================================================================== -->
+        <section id="view-planos" class="saas-view-pane" style="display:none"></section>
+
+        <!-- ====================================================================
+             [VIEW-HTML:CONFIG] TELA 12: CONFIGURAÇÕES DO SISTEMA & ALUNOS
+             ==================================================================== -->
+        <section id="view-configuracoes" class="saas-view-pane" style="display:none"></section>
+
+        <!-- ====================================================================
+             [VIEW-HTML:BUSCA] TELA 13: BUSCA GLOBAL INSTANTÂNEA
+             ==================================================================== -->
+        <section id="view-busca" class="saas-view-pane" style="display:none"></section>
+
+        </main>
       </div>
     </div>
   </div>
 
-    <!-- JurisPass Engine & Views (Bundled for Universal Mobile & Desktop Deployment) -->
+  <!-- ==========================================================================
+       [PARTE 4] BANCO DE DADOS, CORE & CONTROLADORES DE TELA (SCRIPTS JS)
+       ========================================================================== -->
   <script>
 
+    /* ==========================================================================
+       [CORE:VIEWS] HELPER UNIVERSAL DE ROTEAMENTO DECLARATIVO (MAIS DE HTML)
+       Alterna dinamicamente entre as seções declarativas sem destruir o DOM
+       ========================================================================== */
+    function switchView(viewId) {
+      const panes = document.querySelectorAll('.saas-view-pane');
+      panes.forEach(p => p.style.display = 'none');
+      const target = document.getElementById(viewId);
+      if (target) {
+        target.style.display = 'block';
+      }
+      return target;
+    }
+
+    function getViewContainer(viewId) {
+      switchView(viewId);
+      return document.getElementById(viewId) || app;
+    }
+
+
+// ============================================================================
+// [JS:01-ICONS] SVG ICONS FACTORY & ASSETS
+// ============================================================================
 /* === FILE: js\icons.js === */
     /* ==========================================================================
        SVG ICONS FACTORY (REFINADO — ZERO EMOJIS)
@@ -2047,6 +2239,12 @@
 
 
 
+
+
+// ============================================================================
+// [JS:02-DATA] BANCO DE DADOS & CONTEÚDO ACADÊMICO
+// ============================================================================
+// --- [DATA:01-MATERIAS] MATERIAS_DIREITO ---
 /* === FILE: js\data\materias.js === */
 /* ==========================================================================
        BASE DE CONHECIMENTO COMPLETA
@@ -4042,11 +4240,11 @@ const MATERIA = [
         id: 'empresarial',
         nome: 'Direito Empresarial',
         subtitulo: 'Direito Societário, Títulos de Crédito, Recuperação de Empresas & Falência',
-        artigos: 'CC Arts. 966 a 1.195 | Leis nº 6.404/76 e 11.101/05 (Lei 14.112/20)',
+        artigos: 'CC Arts. 966 a 1.195 | Leis nº 6.404/76 e 11.101/05 (Reforma da Lei nº 14.112/20)',
         cor: 'var(--c-teal)',
         corGlow: 'var(--c-teal-glow)',
         iconSvg: SVG.shield,
-        descricao: 'Teoria da empresa, sociedades limitadas e anônimas, títulos cambiais, Recuperação Judicial e Extrajudicial (mediação, Stay Period, AGC, plano especial) e Processo de Falência com ordem legal dos credores.',
+        descricao: 'Teoria da empresa, sociedades limitadas e anônimas, títulos cambiais, Recuperação Judicial, Extrajudicial e Falência completa com a reforma da Lei nº 14.112/2020.',
         modulos: [
           {
             id: 'emp-mod-1',
@@ -4222,86 +4420,190 @@ const MATERIA = [
             iconSvg: SVG.scale,
             cor: 'var(--c-teal)',
             corGlow: 'var(--c-teal-glow)',
-            artigos: 'Lei nº 11.101/2005 (atualizada pela Reforma da Lei nº 14.112/2020)',
-            subtitulo: 'Preservação da empresa, Stay Period, mediação prévia, órgãos concursais, plano de recuperação, novação e recuperação extrajudicial.',
-            resumo: 'Roteiro de aula completo do Prof. Frederico A. O. de Rezende: teoria geral da crise empresarial, legitimidade, suspensão de execuções de 180 dias, nova disciplina do Administrador Judicial, Comitê e AGC, quóruns de aprovação, cram down, travas bancárias e plano especial.',
+            artigos: 'Lei nº 11.101/2005 (Arts. 1º a 74, 161 a 167) | Reforma da Lei nº 14.112/2020',
+            subtitulo: 'Preservação da empresa viável, Stay Period, mediação prévia, órgãos concursais, plano de recuperação, novação e recuperação extrajudicial.',
+            resumo: 'Roteiro completo de Recuperação e Falência (Aulas 01 a 12): teoria geral da crise empresarial, legitimidade, stay period de 180 dias, atuação do AJ e da AGC, as 3 listas de credores, elaboração e aprovação do PRJ, plano especial e recuperação extrajudicial.',
             pilares: [
-              { t: 'Preservação da Empresa (Art. 47)', d: 'Manutenção da fonte produtora, do emprego dos trabalhadores e do interesse dos credores, promovendo a preservação da atividade econômica viável e sua função social.' },
-              { t: 'Stay Period & Trava Bancária', d: 'Suspensão de ações/execuções por 180 dias prorrogável uma vez (Art. 6º, § 4º). Créditos com garantia fiduciária (Art. 49, § 3º) e ACC (§ 4º) NÃO se submetem à RJ!' },
-              { t: 'Administrador Judicial (Arts. 21 a 34)', d: 'Fiscal do processo com atribuições ampliadas em 45% pela Lei 14.112/20. Remuneração máxima de 5% dos créditos concursais (limitada a 2% para ME e EPP - Art. 24, § 5º).' },
-              { t: 'Deliberações da AGC & Cram Down', d: 'Aprovação por classes (Art. 45). Se rejeitado, o juiz pode conceder a recuperação extraordinária via Cram Down (Art. 58, § 1º) preenchidos os requisitos legais.' }
+              { t: 'Preservação da Atividade Viável (Art. 47)', d: 'A recuperação busca manter a fonte produtora, os empregos e os interesses dos credores, superando crises econômicas e financeiras.' },
+              { t: 'Stay Period & Trava Bancária (Arts. 6º e 49)', d: 'Suspensão de ações/execuções por 180 dias prorrogável 1x. Bens de capital essenciais não podem ser expropriados.' },
+              { t: 'Órgãos Concursais: AJ, Comitê e AGC', d: 'AJ como fiscal do processo (remuneração de até 5%, ou 2% para ME/EPP). AGC com 4 classes de credores e quóruns específicos.' },
+              { t: 'Verificação em 3 Listas & Novação', d: '1ª lista do devedor, 2ª lista do AJ (edital com 15 dias) e 3ª lista do QGC. Homologação do PRJ opera novação das dívidas.' }
             ],
             secoes: [
               {
-                titulo: '1ª Seção — Teoria Geral da LRE, Disposições Comuns e Órgãos da Recuperação',
+                titulo: '1ª Seção – Finalidade da Lei, Crises da Empresa e Sujeição Passiva (Itens 1 e 2)',
                 topicos: [
                   {
                     id: 'emp-4-1',
-                    titulo: 'Princípios Estruturantes, Crise Empresarial e Sujeição Passiva da LRE',
-                    fundamento: 'Arts. 1º, 2º, 47 e 75, § 2º da Lei nº 11.101/2005',
-                    conteudo: 'A Lei nº 11.101/2005 (LRE) disciplina a recuperação e falência de empresários individuais e sociedades empresárias (Art. 966 e 982 do CC).<br><br>• <strong>Objetivos e Princípios Centrais:</strong> Princípio da Preservação da Empresa (Art. 47) e Princípio da <em>Par Conditio Creditorum</em> (tratamento paritário e igualitário dos credores dentro da mesma classe em execução concursal coletiva);<br>• <strong>Crise da Empresa:</strong> Apresenta-se em três níveis progressivos: 1) <em>Crise Econômica</em> (queda nas vendas/faturamento); 2) <em>Crise Financeira</em> (escassez imediata de liquidez para honrar obrigações correntes); 3) <em>Crise Patrimonial</em> (passivo superior ao ativo - insolvência);<br>• <strong>Devedores Sujeitos e Excluídos (Art. 2º da LRE):</strong><br>- <em>Exclusão Total da LRE:</em> Empresas públicas (ex.: Correios) e Sociedades de Economia Mista (ex.: Petrobras, Banco do Brasil), cujos controladores mantêm a garantia de solvência;<br>- <em>Exclusão Parcial:</em> Instituições financeiras públicas e privadas (Lei 6.024/74), administradoras de consórcios, sociedades seguradoras e planos de saúde privados (submetem-se a regimes de intervenção e liquidação extrajudicial prévios, alcançando a falência apenas subsidiariamente). A decretação da falência de concessionária de serviço público extingue a concessão (Art. 195).',
-                    exemplo: 'Sociedade de economia mista que atua na prestação de transporte público metropolitano não pode requerer recuperação judicial nem falência com base na LRE por expressa exclusão legal do Art. 2º, I.'
+                    titulo: 'Finalidade da Lei nº 11.101/2005 e os 3 Tipos de Crise Empresarial',
+                    fundamento: 'Arts. 47 e 75 da Lei nº 11.101/2005 (Reforma da Lei nº 14.112/2020)',
+                    conteudo: 'A <strong>Lei nº 11.101/2005</strong>, reformada pela Lei nº 14.112/2020, tem dois eixos centrais: <strong>recuperar</strong> a atividade viável e <strong>liquidar</strong> de forma organizada a empresa inviável.<br><br>As crises empresariais desdobram-se em 3 dimensões fundamentais:<br>• <strong>Crise econômica:</strong> a atividade deixou de gerar receitas e resultados operacionais suficientes (modelo de negócios defasado);<br>• <strong>Crise financeira:</strong> falta de dinheiro disponível em caixa para quitar obrigações no vencimento (problema agudo de liquidez imediata);<br>• <strong>Crise patrimonial:</strong> o conjunto total de bens e direitos do devedor é insuficiente em relação ao volume acumulado das dívidas.',
+                    exemplo: 'Uma indústria com carteira repleta de clientes e encomendas lucrativas, mas sem capital de giro em caixa para pagar fornecedores no fim do mês, vive crise financeira (ideal para recuperação). Já uma fábrica com dívidas impagáveis e sem mercado vive crise patrimonial e econômica irreversível (caso de falência).'
                   },
                   {
                     id: 'emp-4-2',
-                    titulo: 'Competência, Vis Atractiva, Juízo Universal e Suspensão das Execuções (Stay Period)',
-                    fundamento: 'Arts. 3º, 6º, 49 e 76 da Lei nº 11.101/2005',
-                    conteudo: '<strong>Juízo Competente (Art. 3º):</strong> É competente para homologar recuperação extrajudicial, deferir recuperação judicial ou decretar a falência o juízo do local do <strong>principal estabelecimento do devedor</strong> (aquele onde se concentra o maior volume de negócios econômicos e patrimoniais da empresa), ou da filial de empresa com sede fora do Brasil. Prevenção absoluta (Art. 6º, § 8º).<br><br>• <strong>Juízo Universal e Vis Atractiva (Art. 76):</strong> O juízo da falência atrai todas as ações e execuções contra o falido para julgamento unificado e isonômico. <em>Exceções:</em> Ações que demandam quantias ilíquidas (Art. 6º, § 1º) e créditos trabalhistas até a apuração do valor líquido na Justiça do Trabalho;<br>• <strong>Stay Period / Suspensão das Ações (Art. 6º, caput e § 4º):</strong> O deferimento do processamento da RJ suspende o curso da prescrição e de todas as ações e execuções contra o devedor pelo <strong>prazo improrrogável de 180 dias corridos</strong>, prorrogável uma única vez por igual período caso o devedor não tenha concorrido para a demora;<br>• <strong>Créditos Não Sujeitos à Recuperação Judicial:</strong><br>- <em>Execuções Fiscais (Art. 6º, § 7º-B):</em> Não se suspendem pelo stay period, mas os atos de constrição sobre bens essenciais competem ao juízo da recuperação;<br>- <em>Trava Bancária (Art. 49, § 3º):</em> Credores proprietários fiduciários de bens móveis ou imóveis, arrendadores mercantis e proprietários em reserva de domínio <strong>não se submetem à recuperação</strong> (prevalecem seus direitos reais de propriedade), vedada apenas a venda ou retirada dos bens de capital essenciais à atividade empresarial durante o stay period;<br>- <em>Adiantamento de Contrato de Câmbio - ACC (Art. 49, § 4º c/c Art. 86, II):</em> Não se submete à recuperação.',
-                    exemplo: 'Banco detentor de alienação fiduciária sobre a frota de caminhões de empresa em recuperação judicial não se sujeita aos efeitos do plano, mas não pode apreender os caminhões durante os 180 dias do stay period por serem bens de capital essenciais.'
+                    titulo: 'Igualdade entre Credores (Par Condicio Creditorum) e Rateio Pro Rata',
+                    fundamento: 'Princípio Concursal Basilar da Lei nº 11.101/2005',
+                    conteudo: 'O princípio basilar do direito concursal é a <strong>igualdade entre credores da mesma classe (par condicio creditorum)</strong>.<br><br>O patrimônio do devedor serve como garantia coletiva universal. Credores da mesma categoria recebem proporcionalmente ao valor dos seus haveres (<strong>rateio pro rata</strong>), impedindo que um credor individual mais ágil exproprie os bens e deixe os demais desamparados.',
+                    exemplo: 'Se, após as prioridades legais, houver R$ 100 mil em caixa para rateio entre credores quirografários cujos créditos somam R$ 200 mil, cada um receberá exatamente 50% do valor de sua respectiva dívida reconhecida.'
                   },
                   {
                     id: 'emp-4-3',
-                    titulo: 'Conciliações e Mediações Antecedentes aos Processos de Recuperação',
-                    fundamento: 'Arts. 20-A a 20-D da Lei nº 11.101/2005 (Lei nº 14.112/2020)',
-                    conteudo: 'Inovação fundamental introduzida pela reforma da Lei nº 14.112/2020, que incentivou os métodos autocompositivos de solução de conflitos na crise empresarial.<br><br>• <strong>Tutela de Urgência Cautelar Antecedente (Art. 20-B, § 1º):</strong> Nas hipóteses em que o empresário comprove preencher os requisitos do Art. 48 e 51 para requerer recuperação judicial, poderá pleitear em juízo tutela de urgência para a instauração de mediação antecedente;<br>• <strong>Efeito Suspensivo de 60 Dias:</strong> A concessão da cautelar suspende todas as execuções contra o devedor pelo <strong>prazo de até 60 dias</strong> para que devedor e credores tentem composição amigável em ambiente de mediação prévia;<br>• <strong>Dedução do Stay Period (Art. 20-B, § 3º):</strong> Se a mediação restar infrutífera e houver posterior pedido formal de recuperação judicial ou extrajudicial, o período de até 60 dias de suspensão fruído na mediação <strong>será deduzido compulsoriamente do prazo de 180 dias do stay period</strong> da recuperação.',
-                    exemplo: 'Empresa em crise pede mediação antecedente obtendo 60 dias de blindagem contra cobranças judiciais; ao ingressar posteriormente com o pedido de recuperação judicial formal, seu stay period residual será de 120 dias (180 - 60 dias).'
+                    titulo: 'Quem Está Sujeito à Lei: Empresários, Sociedades e Exclusões Totais e Parciais',
+                    fundamento: 'Arts. 1º e 2º da Lei nº 11.101/2005',
+                    conteudo: 'A LRE aplica-se, em regra, ao <strong>empresário individual</strong> e à <strong>sociedade empresária</strong>, regulares ou irregulares, conforme os conceitos dos arts. 966 e 982 do Código Civil.<br><br><strong>Exclusões da Lei:</strong><br>• <strong>Exclusão TOTAL (Art. 2º, I):</strong> Empresas públicas e sociedades de economia mista (ex: Petrobras, Banco do Brasil, Correios) NUNCA podem pedir recuperação judicial nem sofrer falência;<br>• <strong>Exclusão PARCIAL (Art. 2º, II):</strong> Instituições financeiras públicas ou privadas, cooperativas de crédito, administradoras de consórcio, seguradoras e planos de saúde seguem regimes próprios de intervenção e liquidação extrajudicial;<br>• <strong>Concessionárias privadas de serviço público:</strong> sujeitam-se à lei, mas a decretação da falência acarreta a extinção da concessão.',
+                    exemplo: 'Sociedade de economia mista prestadora de serviços estaduais não se submete à LRE. Já uma empresa privada concessionária de transporte público pode falir, extinguindo-se o contrato com o poder público.'
                   },
                   {
                     id: 'emp-4-4',
-                    titulo: 'Administrador Judicial: Requisitos, Novas Funções e Limites de Remuneração',
-                    fundamento: 'Arts. 21 a 34 da Lei nº 11.101/2005 | Provimento CSM-TJSP nº 2.306/2015',
-                    conteudo: 'O <strong>Administrador Judicial (AJ)</strong> é órgão auxiliar da justiça nomeado pelo magistrado na decisão de deferimento do processamento da RJ (Art. 52, I) ou na sentença declaratória de falência (Art. 99, IX). Não se confunde com o gestor judicial (Arts. 64 e 65).<br><br>• <strong>Requisitos Legais (Art. 21):</strong> Profissional idôneo, preferencialmente advogado, economista, administrador de empresas ou contador, ou pessoa jurídica especializada (que deve indicar o profissional responsável pela condução);<br>• <strong>Termo de Compromisso (Art. 33):</strong> Deve ser assinado em juízo em <strong>48 horas</strong> contadas da intimação pessoal sob pena de presunção de recusa;<br>• <strong>Impedimentos (Arts. 30 e 31):</strong> Impedimento geral para quem foi destituído nos últimos 5 anos ou teve contas desaprovadas; impedimento específico para quem tiver parentesco ou afinidade até o 3º grau com o devedor, seus controladores ou administradores, ou for amigo íntimo, inimigo ou dependente econômico;<br>• <strong>Ampliação de Funções pós-Lei 14.112/20:</strong> Aumento de mais de 45% nas atribuições: fiscalização estrita do devedor, emissão de relatórios mensais de atividades (RMA), fiscalização dos termos de adesão eletrônica em AGC (Art. 39, § 4º), condução da constatação prévia (Art. 51-A) e insolvência transnacional (Art. 167-A);<br>• <strong>Remuneração do AJ (Art. 24):</strong> Fixada pelo juiz atendendo à capacidade do devedor e grau de complexidade. <em>Teto Geral:</em> Não excederá <strong>5% do valor total dos créditos submetidos à RJ</strong> ou do valor da venda de bens na falência (§ 1º); <em>Teto Especial para ME e EPP (Art. 24, § 5º):</em> Limitada a <strong>2%</strong> nas recuperações judiciais de microempresas e empresas de pequeno porte; Perda de remuneração se for destituído por culpa ou tiver contas rejeitadas.',
-                    exemplo: 'Em recuperação judicial de empresa de médio porte com passivo concursal de R$ 20.000.000,00, a verba honorária global do administrador judicial arbitrada pelo magistrado não pode ultrapassar R$ 1.000.000,00 (teto de 5% do Art. 24, § 1º).'
-                  },
-                  {
-                    id: 'emp-4-5',
-                    titulo: 'Comitê de Credores e Assembleia Geral de Credores (AGC): Classes, Quóruns e Cram Down',
-                    fundamento: 'Arts. 26 a 46 e Art. 58 da Lei nº 11.101/2005',
-                    conteudo: '<strong>Comitê de Credores (Arts. 26 a 29):</strong> Órgão colegiado fiscalizatório facultativo, composto por representantes das classes. Não possui remuneração custeada pelo devedor (Art. 29). Não havendo comitê, suas funções são desempenhadas pelo Administrador Judicial.<br><br><strong>Assembleia Geral de Credores - AGC (Arts. 35 a 46):</strong> Órgão deliberativo e soberano dos credores sujeitos à recuperação.<br>• <strong>As 4 Classes de Credores (Art. 41):</strong><br>- <em>Classe I:</em> Titulares de créditos trabalhistas e decorrentes de acidentes de trabalho;<br>- <em>Classe II:</em> Titulares de créditos com garantia real (até o valor do bem gravado);<br>- <em>Classe III:</em> Titulares de créditos quirografários, com privilégio especial ou geral;<br>- <em>Classe IV:</em> Titulares de créditos enquadrados como microempresa ou empresa de pequeno porte (ME/EPP);<br>• <strong>Quóruns de Instalação (Art. 37):</strong> Em 1ª convocação com mais de metade dos créditos de cada classe; em 2ª convocação com qualquer número de credores presentes;<br>• <strong>Aprovação do Plano de Recuperação Judicial (Art. 45):</strong> Exige aprovação cumulativa em todas as 4 classes:<br>- <em>Classes I e IV:</em> Aprovação pela maioria simples dos credores presentes (critério puramente por <strong>cabeça</strong>);<br>- <em>Classes II e III:</em> Aprovação pela maioria de credores presentes (por <strong>cabeça</strong>) que representem, cumulativamente, mais da metade do valor total dos créditos presentes (por <strong>crédito</strong>);<br>• <strong>Cram Down / Aprovação Extraordinária pelo Juiz (Art. 58, § 1º):</strong> Se o plano não atingir a aprovação unânime de todas as classes, o juiz pode conceder a recuperação judicial se cumulados: 1) Voto favorável de credores que representem mais da metade do valor de todos os créditos presentes na assembleia; 2) Aprovação de pelo menos 3 das classes (ou 2 classes se forem apenas 3 existentes); 3) Na classe que rejeitou, voto favorável de mais de 1/3 dos credores; e 4) Ausência de tratamento diferenciado entre os credores da classe que rejeitou;<br>• <strong>Termo de Adesão Eletrônica (Art. 45-A):</strong> As deliberações da AGC podem ser substituídas por termos de adesão expressa colhidos por meio eletrônico.',
-                    exemplo: 'Plano aprovado nas Classes I, II e IV, mas rejeitado na Classe III por credor financeiro com 55% dos quirografários: tendo aprovação de mais de 1/3 dos credores presentes na Classe III e metade dos créditos globais, o juiz defere a recuperação via Cram Down.'
+                    titulo: 'Competência Jurisdicional, Prevenção e Juízo Universal da Crise',
+                    fundamento: 'Arts. 3º e 76 da Lei nº 11.101/2005',
+                    conteudo: '<strong>Juízo Competente (Art. 3º):</strong> É competente o juízo do <strong>principal estabelecimento do devedor</strong> — entendido como o local onde se concentra a atividade econômica mais relevante e o centro de decisões reais (e não mera sede estatutária fictícia). Se a sede for no exterior, é competente o juízo da filial brasileira.<br><br><strong>Prevenção:</strong> A distribuição do primeiro pedido previne o juízo para qualquer outro pedido de recuperação ou falência relativo ao mesmo devedor.<br><strong>Juízo Universal (Vis Atractiva):</strong> Na falência, concentra todas as ações patrimoniais sobre o ativo e passivo, com ressalva para execuções fiscais, ações que demandem quantia ilíquida e reclamações trabalhistas em fase de conhecimento.',
+                    exemplo: 'Empresa com endereço estatutário formal em cidade do interior, mas cuja planta industrial, escritórios de gestão e maior parte dos contratos operam na capital: o principal estabelecimento e o juízo competente é a capital.'
                   }
                 ]
               },
               {
-                titulo: '2ª Seção — Procedimento da Recuperação, Plano Especial e Recuperação Extrajudicial',
+                titulo: '2ª Seção – Efeitos do Processo, Stay Period e Mediação Antecedente (Itens 4 e 5)',
                 topicos: [
                   {
-                    id: 'emp-4-6',
-                    titulo: 'Procedimento da Recuperação Judicial: Apresentação do PRJ, Objeções e Novação',
-                    fundamento: 'Arts. 53 a 59 da Lei nº 11.101/2005 | Súmula 581 do STJ',
-                    conteudo: 'Deferido o processamento da recuperação, inicia-se o rito formal para aprovação do Plano de Recuperação Judicial (PRJ).<br><br>• <strong>Apresentação do PRJ em 60 Dias (Art. 53):</strong> O devedor deve apresentar o plano em juízo no <strong>prazo improrrogável de 60 dias</strong> corridos contados da publicação da decisão que deferiu o processamento, <strong>sob pena de convolação em falência imediata</strong>. Deve conter discriminação minudente dos meios de recuperação (Art. 50), viabilidade econômica e laudo de avaliação de ativos;<br>• <strong>Edital e Objeções dos Credores (Arts. 53, parágrafo único e 55):</strong> Publicado o edital de recebimento do PRJ, qualquer credor tem o prazo de <strong>30 dias</strong> para manifestar formalmente sua objeção ao plano. Havendo qualquer objeção, o juiz convocará compulsoriamente a Assembleia Geral de Credores (Art. 56);<br>• <strong>Decisão de Concessão e Novação Recuperacional (Arts. 58 e 59):</strong> Aprovado o plano pela AGC ou por Cram Down e apresentadas as certidões negativas de débitos tributários (CNDs - Art. 57), o juiz profere a decisão de concessão da RJ. Essa decisão opera a <strong>novação sui generis</strong> de todos os créditos anteriores ao pedido submetidos à recuperação (Art. 59);<br>• <strong>Preservação das Ações Contra Coobrigados e Fiadores (Art. 49, § 1º e Súmula 581 do STJ):</strong> <em>\"A recuperação judicial do devedor principal não impede o prosseguimento das ações e execuções ajuizadas contra terceiros devedores solidários ou coobrigados em geral, por garantia cambial ou fidejussória.\"</em> A novação não extingue a fiança nem o aval;<br>• <strong>Garantia Real (Art. 50, § 1º e Súmula 61 TJSP):</strong> A supressão ou substituição de garantia real só é válida se expressamente aprovada pelo titular da garantia;<br>• <strong>Natureza e Recurso (Art. 59, §§ 1º e 2º):</strong> A decisão concessiva de RJ constitui título executivo judicial, recorrível por <strong>Agravo de Instrumento</strong>.',
-                    exemplo: 'Credor titular de nota promissória avalizada pelo sócio da empresa em recuperação pode prosseguir normalmente com a execução individual contra o avalista mesmo após a aprovação do plano (Súmula 581 STJ).'
+                    id: 'emp-4-5',
+                    titulo: 'Stay Period: Suspensão de 180 Dias, Trava Bancária e Bens Essenciais',
+                    fundamento: 'Art. 6º e Art. 49, §§ 3º e 4º da Lei nº 11.101/2005',
+                    conteudo: 'O deferimento do processamento da RJ instaura o <strong>stay period</strong>: suspensão de todas as ações e execuções contra o devedor por <strong>180 dias</strong>, prorrogável <strong>uma única vez por igual período</strong> em caráter excepcional.<br><br><strong>Regras e Limites do Stay Period:</strong><br>• <strong>Execuções fiscais:</strong> NÃO se suspendem automaticamente pelo stay period;<br>• <strong>Trava bancária / Créditos fiduciários (Art. 49, § 3º):</strong> credores titulares de alienação fiduciária e cessão fiduciária de recebíveis NÃO se submetem à recuperação judicial;<br>• <strong>Proteção dos bens de capital essenciais:</strong> durante o stay period, é expressamente <strong>proibida a retirada ou busca e apreensão</strong> de bens de capital essenciais à atividade empresarial situados no estabelecimento da devedora.',
+                    exemplo: 'Máquinas pesadas ou caminhões de entrega essenciais à produção da devedora gravados em alienação fiduciária não entram no desconto do plano, mas o banco credor fica impedido de apreendê-los durante o período de suspensão de 180 dias.'
                   },
                   {
+                    id: 'emp-4-6',
+                    titulo: 'Mediação e Conciliação Antecedente e Tutela Cautelar de 60 Dias',
+                    fundamento: 'Arts. 20-A a 20-D da Lei nº 11.101/2005 (Lei nº 14.112/2020)',
+                    conteudo: 'Inovação da reforma, a lei estimula a <strong>mediação e conciliação pré-processual ou incidental</strong> para resolver conflitos de forma negociada.<br><br><strong>Tutela Cautelar Preparatória (Art. 20-B, § 1º):</strong> A empresa em situação urgente que preencha os requisitos de recuperação pode obter tutela cautelar para <strong>suspender execuções pelo prazo de até 60 dias</strong> enquanto negocia um acordo com credores.<br><br><strong>Regra de Desconto:</strong> Se a empresa posteriormente ajuizar pedido de recuperação judicial ou extrajudicial, esse período cautelar já fruído é <strong>obrigatoriamente descontado do stay period</strong> de 180 dias.',
+                    exemplo: 'Empresa em crise pede mediação antecedente e suspende execuções por 50 dias. Como não fechou o acordo amigável, ingressa com pedido de Recuperação Judicial: seu stay period restante será de 130 dias (180 - 50).'
+                  }
+                ]
+              },
+              {
+                titulo: '3ª Seção – Órgãos Concursais: Administrador Judicial, Comitê e AGC (Item 6)',
+                topicos: [
+                  {
                     id: 'emp-4-7',
-                    titulo: 'Execução do Plano, Período de Fiscalização Bienal e Convolação em Falência',
-                    fundamento: 'Arts. 61 a 63 e Art. 73 da Lei nº 11.101/2005',
-                    conteudo: 'Concedida a recuperação judicial, o devedor ingressa na fase executiva de cumprimento das obrigações assumidas perante os credores.<br><br>• <strong>Período de Fiscalização Judicial Bienal (Art. 61):</strong> O devedor permanecerá sob fiscalização judicial estrita pelo <strong>prazo de 2 anos</strong>, contados da data da concessão da recuperação, independentemente de haver prazo de carência superior no plano;<br>• <strong>Descumprimento durante o Período Bienal (Art. 61, § 1º c/c Art. 73, IV):</strong> O inadimplemento de qualquer obrigação prevista no plano durante os 2 anos de fiscalização acarreta a <strong>convolação imediata da recuperação judicial em FALÊNCIA</strong> pelo juiz prolator;<br>• <strong>Reconstituição dos Direitos Originais (Art. 61, § 2º):</strong> Decretada a falência por descumprimento, os credores têm reconstituídos seus direitos e garantias nas condições originais contratadas antes da novação, abatendo-se os valores que já tiverem sido pagos;<br>• <strong>Descumprimento após o Encerramento Bienal (Art. 62):</strong> Transcorridos os 2 anos, o juiz profere a Sentença de Encerramento da Recuperação Judicial (Art. 63). Se o devedor inadimplir obrigação após o encerramento, o credor não obtém convolação direta: deve ajuizar execução específica ou requerer novo pedido autônomo de falência fundamentado no Art. 94.<br><br>• <strong>Causas Gerais de Convolação em Falência (Art. 73):</strong> I - Por deliberação da assembleia geral de credores; II - Por não apresentação do PRJ no prazo de 60 dias (Art. 53); III - Quando rejeitado o plano e não apresentado plano alternativo pelos credores (Art. 56, § 8º); IV - Por descumprimento de obrigação assumida no plano durante os 2 anos de fiscalização; V - Por liquidação de ativos em prejuízo a credores.',
-                    exemplo: 'Empresa que deixa de pagar a 2ª parcela devida aos credores quirografários no 18º mês após a concessão da RJ tem sua recuperação convolada de ofício em falência com base no Art. 73, IV da LRE.'
+                    titulo: 'Administrador Judicial (AJ): Requisitos, Funções e Remuneração',
+                    fundamento: 'Arts. 21 a 25 da Lei nº 11.101/2005',
+                    conteudo: 'O <strong>Administrador Judicial (AJ)</strong> é profissional idôneo (advogado, economista, administrador de empresas, contador) ou pessoa jurídica especializada nomeada pelo juiz.<br><br><strong>Funções e Limites:</strong><br>• O AJ é <strong>fiscal do juízo e da lei</strong>: verifica livros, elabora relatórios mensais e confere créditos;<br>• <strong>Na RJ, o AJ NÃO assume a gestão da empresa</strong> (a gestão diária continua com os próprios administradores da devedora);<br>• <strong>Teto remuneratório (Art. 24):</strong> a remuneração fixada pelo juiz não excederá <strong>5% do valor do passivo</strong> submetido à recuperação;<br>• <strong>Teto especial para ME/EPP e Produtor Rural:</strong> o teto máximo de remuneração do AJ é de <strong>2%</strong>;<br>• O AJ destituído por desídia ou que tenha suas contas desaprovadas <strong>perde o direito à remuneração</strong> e fica impedido de atuar em novos processos por 5 anos.',
+                    exemplo: 'Na recuperação de uma microempresa com R$ 1.000.000 de passivo, os honorários do AJ não podem ultrapassar R$ 20.000,00 (teto de 2%). O AJ fiscaliza o cumprimento do processo, sem interferir na gestão comercial.'
                   },
                   {
                     id: 'emp-4-8',
-                    titulo: 'Plano Especial para Microempresas, EPPs e Produtores Rurais',
-                    fundamento: 'Arts. 70 a 72 e Art. 70-A da Lei nº 11.101/2005 | Lei Complementar nº 123/2006',
-                    conteudo: 'Em observância ao tratamento diferenciado e simplificado garantido pela Constituição Federal (Art. 170, IX), a LRE estabeleceu o <strong>Plano Especial de Recuperação Judicial</strong> para microempresas (ME), empresas de pequeno porte (EPP) e produtores rurais (Art. 70-A).<br><br>• <strong>Natureza Facultativa:</strong> A adesão ao plano especial é faculdade da ME/EPP, que pode preferir adotar o procedimento ordinário se possuir credores com garantias estruturadas;<br>• <strong>Condições Rígidas do Plano Especial (Art. 71):</strong><br>I - Abrangerá todos os créditos existentes na data do pedido (exceto fiscais e trava bancária do Art. 49, § 3º);<br>II - Preverá parcelamento da dívida em <strong>até 36 parcelas mensais, iguais e sucessivas</strong>, corrigidas exclusivamente pela <strong>taxa SELIC</strong>, podendo conter proposta de deságio;<br>III - Pagamento da primeira parcela no <strong>prazo máximo de 180 dias corridos</strong> contados da distribuição do pedido judicial;<br>IV - Necessidade de autorização do juiz, ouvidos o AJ e o Comitê, para o devedor aumentar despesas ou contratar novos funcionários;<br>• <strong>Aprovação Facilitada sem AGC Obrigatória (Art. 72):</strong> A oposição de objeções pelos credores <strong>não exige a convocação de Assembleia Geral de Credores</strong>: a recuperação especial será concedida de pronto pelo juiz se não houver oposição de credores titulares de mais da metade dos créditos de qualquer uma das classes;<br>• <strong>Produtor Rural (Art. 70-A):</strong> Admite-se plano especial para produtor rural cujo valor da causa não exceda R$ 4.800.000,00.',
-                    exemplo: 'Microempresa de confecções em crise financeira requer plano especial parcelando suas dívidas concursais em 36 vezes corrigidas pela SELIC com 6 meses de carência (Art. 71).'
+                    titulo: 'Comitê de Credores: Fiscalização, Ausência de Remuneração e Impedimentos',
+                    fundamento: 'Arts. 26 a 34 da Lei nº 11.101/2005',
+                    conteudo: 'O <strong>Comitê de Credores</strong> é órgão colegiado e facultativo, constituído pela AGC para representar os credores e fiscalizar a atuação do devedor e do AJ.<br><br><strong>Regras e Vedações:</strong><br>• Os membros do comitê <strong>não recebem remuneração</strong> pela devedora ou massa falida (apenas ressarcimento de despesas autorizadas comprovadas);<br>• Há impedimento ético: destituição anterior ou parentesco/afinidade com o devedor até o 3º grau proíbem atuação;<br>• Uma vez nomeados, o AJ e os membros do Comitê devem assinar termo de compromisso em <strong>48 horas</strong> da intimação pessoal;<br>• Não havendo comitê, suas atribuições cabem ao próprio Administrador Judicial.',
+                    exemplo: 'Credores constituem comitê com representantes das classes trabalhista e quirografária para auditar o estoque da empresa sem receber salários por essa atuação.'
                   },
                   {
                     id: 'emp-4-9',
-                    titulo: 'Recuperação Extrajudicial (RE): Modalidades Homologatória e Impositiva',
+                    titulo: 'Assembleia Geral de Credores (AGC): As 4 Classes, Quóruns e Cram Down',
+                    fundamento: 'Arts. 35 a 46 e Art. 58 da Lei nº 11.101/2005',
+                    conteudo: 'A <strong>Assembleia Geral de Credores (AGC)</strong> reúne todos os credores sujeitos para deliberar sobre matérias cruciais, especialmente a aprovação ou rejeição do Plano de Recuperação (PRJ).<br><br><strong>As 4 Classes de Credores (Art. 41):</strong><br>1. <strong>Classe I:</strong> Titulares de créditos trabalhistas ou decorrentes de acidentes de trabalho;<br>2. <strong>Classe II:</strong> Titulares de créditos com garantia real (hipoteca, penhor);<br>3. <strong>Classe III:</strong> Titulares de créditos quirografários, com privilégio geral e subordinados;<br>4. <strong>Classe IV:</strong> Titulares de créditos enquadrados como Microempresa (ME) ou EPP.<br><br><strong>Quóruns de Aprovação do PRJ (Art. 45):</strong><br>• <strong>Classes I e IV:</strong> Aprovação por maioria simples <strong>por cabeça</strong> (cada credor presente = 1 voto, independentemente do montante do crédito);<br>• <strong>Classes II e III:</strong> Aprovação cumulativa: maioria simples <strong>por cabeça E por mais da metade do valor</strong> dos créditos presentes.<br><br><strong>Cram Down (Art. 58, § 1º):</strong> Aprovação judicial excepcional do plano rejeitado, desde que tenha voto favorável de credores que representem mais da metade do valor presente em assembleia, aprovação em 3 classes (ou em 2 se houver empate), e votação favorável superior a 1/3 na classe que o rejeitou.',
+                    exemplo: 'Na classe trabalhista (Classe I), um ex-empregado com R$ 2.000 a receber tem exatamente o mesmo poder de voto que outro trabalhador com R$ 150.000, pois o critério legal é por cabeça.'
+                  }
+                ]
+              },
+              {
+                titulo: '4ª Seção – Verificação de Créditos, Impugnações e Crédito Tributário (Item 7)',
+                topicos: [
+                  {
+                    id: 'emp-4-10',
+                    titulo: 'As Três Listas de Credores: Administrativa, do AJ e o QGC Definitivo',
+                    fundamento: 'Arts. 7º a 20 da Lei nº 11.101/2005',
+                    conteudo: 'A apuração do passivo concursal ocorre por meio de uma sucessão ordenada de <strong>3 listas</strong>:<br><br>1. <strong>1ª Lista:</strong> Apresentada pelo próprio devedor na petição inicial da RJ;<br>2. <strong>2ª Lista (Lista do AJ):</strong> Publicado o edital da 1ª lista, os credores dispõem de <strong>15 dias</strong> para apresentar ao Administrador Judicial suas habilitações ou divergências administrativas. Encerrado esse prazo, o AJ tem até <strong>45 dias</strong> para conferir os livros e publicar sua própria relação de credores;<br>3. <strong>3ª Lista (QGC - Quadro Geral de Credores):</strong> Consolidado pelo AJ e homologado pelo juiz após o julgamento de todas as impugnações e habilitações judiciais.',
+                    exemplo: 'Credor que foi incluído pelo devedor na 1ª lista com R$ 10.000, mas possui comprovantes de R$ 15.000, protocola divergência administrativa diretamente ao AJ no prazo de 15 dias sem custas judiciais.'
+                  },
+                  {
+                    id: 'emp-4-11',
+                    titulo: 'Impugnações Judiciais de Crédito e Habilitações Retardatárias (Limite de 3 Anos)',
+                    fundamento: 'Arts. 8º, 10 e 19 da Lei nº 11.101/2005',
+                    conteudo: 'Publicado o edital da 2ª lista do AJ, abre-se o prazo preclusivo de <strong>10 dias</strong> para que qualquer credor, o Comitê, o devedor, seus sócios ou o Ministério Público apresentem <strong>impugnação judicial</strong> dirigida ao juiz do processo.<br><br><strong>Habilitações Retardatárias (Art. 10):</strong><br>• Se o credor perde o prazo do edital inicial, sua habilitação será autuada como retardatária;<br>• Na RJ, o retardatário perde o direito de voto em assembleia até a homologação;<br>• Na falência, não tem direito a rateios já realizados e deve pagar as custas;<br>• <strong>Prazo decadencial máximo:</strong> na falência, o pedido de habilitação ou reserva de crédito deve ser formulado em no máximo <strong>3 anos</strong> contados da publicação da sentença declaratória (art. 10, § 10).',
+                    exemplo: 'Credor que não se habilitou perante o AJ nos 15 dias iniciais ajuíza habilitação judicial retardatária; enquanto o juiz não decidir, ele não vota na AGC da recuperação.'
+                  },
+                  {
+                    id: 'emp-4-12',
+                    titulo: 'O Crédito Tributário na Recuperação: Execuções Fiscais e Cooperação Judiciária',
+                    fundamento: 'Arts. 6º, § 7º-B, 57 e 68 da Lei nº 11.101/2005',
+                    conteudo: 'O <strong>crédito tributário não se submete aos efeitos da recuperação judicial</strong>, de modo que as execuções fiscais não são suspensas automaticamente pelo stay period.<br><br>No entanto, para harmonizar a arrecadação pública com a sobrevivência da empresa, o juízo da recuperação pode, por <strong>cooperação judiciária</strong>, determinar a substituição de atos de constrição fiscal que recaiam sobre bens de capital essenciais à continuidade da atividade.<br>Na falência, instaura-se de ofício incidente de classificação de crédito público em <strong>30 dias</strong>.',
+                    exemplo: 'A Procuradoria da Fazenda prossegue executando dívida de ICMS; se a penhora bloquear contas bancárias de pagamento de salários, o juiz da RJ pode cooperar para substituir a penhora por outro ativo da empresa.'
+                  }
+                ]
+              },
+              {
+                titulo: '5ª Seção – Procedimento da RJ, Constatação Prévia e o Plano de Recuperação (Itens 8 e 9)',
+                topicos: [
+                  {
+                    id: 'emp-4-13',
+                    titulo: 'Petição Inicial da RJ, Documentos Obrigatórios e Constatação Prévia (Art. 51-A)',
+                    fundamento: 'Arts. 48, 51 e 51-A da Lei nº 11.101/2005',
+                    conteudo: 'Para requerer a RJ, o devedor deve exercer atividade regular há mais de 2 anos, não ser falido e não ter obtido RJ nos últimos 5 anos.<br><br><strong>Constatação Prévia (Art. 51-A):</strong> O juiz pode nomear profissional legalmente habilitado para verificar in loco as reais condições de funcionamento da empresa e a regularidade formal dos documentos apresentados.<br><strong>ATENÇÃO (Regra de Ouro da OAB):</strong> A constatação prévia <strong>NÃO serve</strong> para o juiz analisar ou rejeitar o pedido sob argumento de que a empresa seria economicamente inviável (essa análise cabe com exclusividade aos credores na AGC). Serve apenas para constatar fraudes ou se a empresa funciona de fato.',
+                    exemplo: 'Juiz determina constatação prévia em distribuidora de bebidas: o perito constata que o galpão está ativo, possui estoque e empregados registrados, limitando-se a atestar a regularidade formal sem opinar sobre a rentabilidade futura.'
+                  },
+                  {
+                    id: 'emp-4-14',
+                    titulo: 'Deferimento do Processamento vs. Concessão da Recuperação Judicial',
+                    fundamento: 'Arts. 52 e 58 da Lei nº 11.101/2005',
+                    conteudo: 'Não confunda o <strong>deferimento do processamento</strong> com a <strong>concessão da recuperação judicial</strong>:<br><br>• <strong>Deferimento do processamento (Art. 52):</strong> Decisão inicial na qual o juiz verifica os requisitos formais dos arts. 48 e 51, nomeia o AJ, instaura o stay period de 180 dias e ordena a publicação do edital. O devedor <strong>continua na administração</strong> do negócio;<br>• <strong>Concessão da RJ (Art. 58):</strong> Decisão posterior que ocorre após a apresentação, votação e <strong>aprovação do PRJ pelos credores</strong> (ou por cram down). É aqui que se homologa o plano e opera-se a novação.',
+                    exemplo: 'O deferimento do processamento abre a corrida dos 60 dias para apresentar o plano. A empresa só tem a recuperação de fato concedida meses depois, quando a AGC aprova suas condições de pagamento.'
+                  },
+                  {
+                    id: 'emp-4-15',
+                    titulo: 'O Plano de Recuperação Judicial (PRJ): Prazos de 60 Dias, Objeções e Laudo de Viabilidade',
+                    fundamento: 'Arts. 53 a 56 da Lei nº 11.101/2005',
+                    conteudo: 'Publicada a decisão de deferimento do processamento, o devedor dispõe do prazo improrrogável de <strong>60 dias</strong> para apresentar em juízo o <strong>Plano de Recuperação Judicial (PRJ)</strong>, sob pena de <strong>convolação imediata em falência</strong>.<br><br><strong>Requisitos do PRJ:</strong> discriminação pormenorizada dos meios de recuperação, demonstração de viabilidade econômica e laudo econômico-financeiro assinado por profissional habilitado.<br><strong>Objeções:</strong> Publicado o aviso aos credores sobre o recebimento do plano, qualquer credor tem <strong>30 dias</strong> para manifestar objeção. Havendo ao menos uma objeção, o juiz convocará a AGC para votar.',
+                    exemplo: 'A devedora apresenta plano propondo carência de 1 ano, deságio de 40% e parcelamento do saldo em 8 anos; o banco credor apresenta objeção formal em 30 dias, forçando a deliberação em AGC.'
+                  },
+                  {
+                    id: 'emp-4-16',
+                    titulo: 'Homologação, Novação das Dívidas e Manutenção das Ações contra Avalistas e Fiadores',
+                    fundamento: 'Art. 59 da Lei nº 11.101/2005 | Súmula 581 do STJ',
+                    conteudo: 'Aprovado o plano pela AGC ou por cram down e apresentadas as certidões negativas fiscais (art. 57), o juiz concede a recuperação judicial.<br><br><strong>Efeitos da Concessão:</strong><br>• <strong>Novação:</strong> os créditos anteriores sujeitos à recuperação têm suas condições originais extintas e substituídas pelas novas cláusulas do plano aprovado;<br>• <strong>Título Executivo Judicial:</strong> o plano homologado serve de título para execução em caso de atraso;<br>• <strong>Súmula 581 do STJ:</strong> A recuperação judicial do devedor principal <strong>NÃO impede</strong> o prosseguimento nem a propositura de ações e execuções contra seus <strong>fiadores, avalistas e coobrigados</strong> em geral;<br>• <strong>Garantia Real:</strong> A supressão ou substituição de garantia real exige aprovação expressa do credor titular.',
+                    exemplo: 'Empresa em recuperação tem sua dívida parcelada pelo plano com deságio; o credor bancário pode cobrar o valor integral e original diretamente do sócio que assinou como avalista da nota promissória.'
+                  },
+                  {
+                    id: 'emp-4-17',
+                    titulo: 'Fiscalização Judicial Bienal e Hipóteses de Convolação em Falência',
+                    fundamento: 'Arts. 61 a 63 e Art. 73 da Lei nº 11.101/2005',
+                    conteudo: 'Após a concessão da RJ, o devedor permanece sob <strong>fiscalização judicial pelo prazo de até 2 anos</strong> (período bienal), contado da homologação do plano.<br><br><strong>Consequências de Eventual Descumprimento:</strong><br>• <strong>Descumprimento dentro dos 2 anos:</strong> Se a devedora deixar de pagar qualquer obrigação do plano prevista para vencer no período bienal, o juiz decretará a <strong>convolação imediata da recuperação em falência</strong>, restabelecendo as dívidas originais (descontado o que foi pago);<br>• <strong>Descumprimento após o biênio (após o encerramento da RJ):</strong> O credor prejudicado pode executar o valor perante o juízo cível competente ou requerer a falência do devedor com base no art. 94.',
+                    exemplo: 'Empresa paga a 1ª parcela da RJ no 6º mês, mas atrasa a parcela do 18º mês: o credor comunica o juiz e a recuperação é sumariamente convolada em falência.'
+                  }
+                ]
+              },
+              {
+                titulo: '6ª Seção – Plano Especial (ME/EPP/Rural), Recuperação Extrajudicial e Prazos Decisivos (Itens 10 a 15)',
+                topicos: [
+                  {
+                    id: 'emp-4-18',
+                    titulo: 'Plano Especial para Microempresas, EPPs e Produtores Rurais (LC nº 123/2006)',
+                    fundamento: 'Arts. 70 a 72 da Lei nº 11.101/2005 | LC nº 123/2006',
+                    conteudo: 'Microempresas (receita bruta anual até R$ 360 mil), Empresas de Pequeno Porte (até R$ 4,8 milhões) e o produtor rural com endividamento reduzido podem optar pelo <strong>plano especial de recuperação judicial</strong>.<br><br><strong>Condições do Plano Especial:</strong><br>• Pagamento parcelado em <strong>até 36 parcelas mensais, iguais e sucessivas</strong>;<br>• Correção monetária e juros equivalentes à <strong>taxa Selic</strong>;<br>• Vencimento da 1ª parcela em no máximo <strong>180 dias</strong> contados da distribuição do pedido;<br>• Teto dos honorários do AJ reduzido para <strong>2%</strong>;<br>• Não há necessidade de convocar AGC: a oposição de credores titulares de mais da metade dos créditos das classes abrangidas impede a concessão da recuperação.',
+                    exemplo: 'Microempresa de alimentos com dívidas bancárias de R$ 300.000 ingressa no plano especial: ganha 180 dias de carência e quitará o passivo sujeito em 36 vezes corrigidas pela Selic.'
+                  },
+                  {
+                    id: 'emp-4-19',
+                    titulo: 'Recuperação Extrajudicial (RE): Modalidades Facultativa e Impositiva e Quóruns',
                     fundamento: 'Arts. 161 a 167 da Lei nº 11.101/2005 (Lei nº 14.112/2020)',
-                    conteudo: 'A <strong>Recuperação Extrajudicial (RE)</strong> é mecanismo de renegociação privada de dívidas acordado diretamente entre o empresário em crise e seus credores, submetido ao Poder Judiciário apenas para homologação do Plano de Recuperação Extrajudicial (PRE).<br><br>• <strong>Requisitos de Admissibilidade (Art. 161):</strong> Preenchimento dos requisitos do Art. 48; não ter pendência de RJ nem ter obtido RJ ou homologação de plano de RE há menos de 2 anos; vedação a tratamento desfavorável a credores excluídos;<br>• <strong>Créditos Excluídos da RE (Art. 161, § 1º):</strong> Créditos tributários, créditos trabalhistas (salvo negociação coletiva autorizada) e os créditos de trava bancária/fiduciários do Art. 49, § 3º;<br>• <strong>Espécies de Recuperação Extrajudicial:</strong><br>1) <em>Meramente Homologatória ou Facultativa (Art. 162):</em> O plano é subscrito por todos os credores das espécies abrangidas, vinculando exclusivamente aqueles que assinaram voluntariamente o acordo;<br>2) <em>Impositiva ou Obrigatória (Art. 163):</em> Se o devedor obtiver a adesão de credores que representem <strong>mais da metade (mais de 50%)</strong> dos créditos de cada classe ou grupo abrangido, a homologação judicial <strong>obriga e vincula compulsoriamente todos os demais credores dissidentes</strong> da mesma classe;<br>• <strong>Inovação da Lei 14.112/20 (Art. 163, § 7º):</strong> O pedido de RE pode ser protocolado em juízo com a concordância de apenas <strong>1/3 (um terço)</strong> dos créditos, concedendo-se o prazo improrrogável de <strong>90 dias</strong> para o devedor atingir o quórum de mais de 50%, permitida a suspensão das execuções (stay period) restrita às dívidas negociadas;<br>• <strong>Eficácia de Título Executivo Judicial (Art. 161, § 6º):</strong> A sentença que homologa o plano de recuperação extrajudicial tem força de título executivo judicial.',
-                    exemplo: 'Empresa obtém adesão prévia de credores titulares de 58% dos créditos de fornecedores ao plano de alongamento de dívidas: a homologação judicial impõe as novas condições de pagamento aos 42% dos fornecedores que não concordaram (Art. 163).'
+                    conteudo: 'A <strong>Recuperação Extrajudicial (RE)</strong> é realizada prévia e consensualmente entre o devedor e seus credores, ingressando em juízo apenas para homologação.<br><br><strong>Modalidades de RE:</strong><br>• <strong>RE Facultativa ou Homologatória (Art. 162):</strong> Assinada pelo devedor e credores, vincula com exclusividade os credores signatários do termo;<br>• <strong>RE Impositiva (Art. 163):</strong> Exige adesão prévia de credores que representem <strong>mais da metade (mais de 50%)</strong> dos créditos de cada espécie abrangida no plano. Homologada pelo juiz, <strong>obriga inclusive os credores dissidentes</strong> daquela mesma categoria;<br>• <strong>Adesão Mínima Inicial:</strong> Pode-se ajuizar com anuência de ao menos <strong>1/3 dos créditos</strong>, comprometendo-se a atingir o quórum de mais da metade em até 90 dias;<br>• <strong>Vedações:</strong> não pode contemplar créditos tributários, trabalhistas (salvo negociação coletiva) nem antecipar pagamentos.',
+                    exemplo: 'Empresa obtém assinatura de bancos titulares de 55% das dívidas financeiras: protocola a RE impositiva e o juiz homologa, submetendo os 45% restantes dos bancos às novas condições pactuadas.'
+                  },
+                  {
+                    id: 'emp-4-20',
+                    titulo: 'Comparação Rápida entre RJ, RE e Falência e Caso Prático Integrado',
+                    fundamento: 'Visão Panorâmica Comparativa da Lei nº 11.101/2005',
+                    conteudo: '<strong>Quadro Comparativo:</strong><br>• <strong>Recuperação Judicial:</strong> Processo judicial amplo, com stay period universal, deliberação em AGC e fiscalização bienal. Indicada para crises graves e generalizadas;<br>• <strong>Recuperação Extrajudicial:</strong> Negociação privada prévia, mais célere e econômica, focada em certas classes de credores bancários/comerciais;<br>• <strong>Falência:</strong> Processo de liquidação judicial forçada de empresa inviável, com arrecadação de bens, alienação em leilão e rateio entre os credores segundo rigorosa ordem legal.<br><br><strong>Caso Prático Integrado (Fábrica de Móveis):</strong> Fábrica com encomendas atrasa bancos e fornecedores. Busca mediação prévia (60 dias de suspensão). Pede RJ e obtém stay period. AJ publica 2ª lista. Devedora apresenta PRJ em 60 dias com carência e deságio. AGC aprova em 4 classes. Juiz concede RJ. Se descumprir no biênio, processo é convolado em falência.',
+                    exemplo: 'Compreender a transição entre o pedido preventivo (mediação), a proteção judicial (RJ) e a dissolução forçada (falência) é o núcleo exigido no Exame de Ordem e concursos jurídicos.'
+                  },
+                  {
+                    id: 'emp-4-21',
+                    titulo: 'Tabela de Prazos Decisivos e Glossário de Termos em Linguagem Direta',
+                    fundamento: 'Consolidação de Prazos da Lei nº 11.101/2005',
+                    conteudo: '<strong>Prazos Cruciais para Memorizar:</strong><br>• <strong>Mediação cautelar antecedente:</strong> até 60 dias (descontados do stay period se houver RJ);<br>• <strong>Stay period da RJ:</strong> 180 dias (prorrogável 1x por igual período);<br>• <strong>Apresentação do PRJ:</strong> 60 dias do deferimento do processamento;<br>• <strong>Objeção de credor ao plano:</strong> 30 dias da publicação do aviso;<br>• <strong>Habilitações/divergências ao AJ:</strong> 15 dias do edital da 1ª lista;<br>• <strong>Publicação da 2ª lista pelo AJ:</strong> até 45 dias;<br>• <strong>Impugnação judicial da lista:</strong> 10 dias do edital da 2ª lista;<br>• <strong>Fiscalização judicial bienal da RJ:</strong> 2 anos da homologação;<br>• <strong>Plano especial ME/EPP:</strong> até 36 parcelas mensais, 1ª em até 180 dias, honorários do AJ teto de 2%;<br>• <strong>RE Impositiva:</strong> quórum superior à metade de cada espécie (pode protocolar com 1/3 e complementar em 90 dias).<br><br><strong>Glossário Concursal Rápido:</strong><br>• <strong>Stay Period:</strong> blindagem patrimonial legal contra execuções;<br>• <strong>Novação:</strong> extinção das condições originais da dívida e criação das regras do plano;<br>• <strong>Cram Down:</strong> imposição judicial do plano aos credores dissidentes em hipóteses restritas;<br>• <strong>Rateio Pro Rata:</strong> distribuição proporcional entre credores da mesma categoria.',
+                    exemplo: 'Memorize: 60 dias (PRJ), 30 dias (objeção), 180 dias (stay period e carência do plano especial), 2 anos (fiscalização bienal).'
                   }
                 ]
               }
@@ -4313,65 +4615,162 @@ const MATERIA = [
             iconSvg: SVG.scale,
             cor: 'var(--c-teal)',
             corGlow: 'var(--c-teal-glow)',
-            artigos: 'Lei nº 11.101/2005, Arts. 75 a 160 (atualizada pela Lei nº 14.112/2020)',
-            subtitulo: 'Pressupostos, impontualidade injustificada, tríplice omissão, procedimento pré-falimentar, depósito elisivo e classificação de créditos.',
-            resumo: 'Roteiro de aula completo do Prof. Frederico A. O. de Rezende sobre Falência: execução coletiva universal, as três hipóteses de decretação do Art. 94, defesa e depósito elisivo, sentença declaratória do Art. 99, sistema recursal do Art. 100 e ordem legal dos credores (Arts. 83 e 84).',
+            artigos: 'Lei nº 11.101/2005 (Arts. 75 a 160) | Reforma pela Lei nº 14.112/2020',
+            subtitulo: 'Pressupostos da quebra, insolvência presumida, sentença falimentar, termo legal, ineficácia objetiva, ação revocatória, extraconcursais e concursais.',
+            resumo: 'Roteiro completo de Falência e Liquidação Concursal (Aulas 13 a 23): da autofalência e pedido do credor à fixação do termo legal, ineficácia dos atos (Art. 129), ação revocatória (Art. 130), responsabilidade pessoal e rigorosa ordem de credores (Arts. 84 e 83).',
             pilares: [
-              { t: 'Execução Coletiva Universal', d: 'Processo judicial de liquidação e arrecadação do ativo do empresário insolvente para pagamento equitativo e isonômico do passivo (Art. 75).' },
-              { t: 'Insolvência Presumida (Art. 94)', d: 'I - Impontualidade injustificada superior a 40 salários mínimos; II - Frustração de execução (tríplice omissão); III - Prática de atos de falência.' },
-              { t: 'Depósito Elisivo (Art. 98, p.u.)', d: 'No prazo de 10 dias da citação, o devedor pode depositar o valor da dívida atualizada para afastar a decretação da falência e discutir a legitimidade do título.' },
-              { t: 'Rigorosa Ordem dos Credores', d: 'Extraconcursais primeiro (Art. 84). Concursais (Art. 83): 1º Trabalhistas até 150 SM; 2º Garantia Real; 3º Tributários; 4º Quirografários; 5º Subordinados.' }
+              { t: 'Execução Coletiva Universal', d: 'Liquidação judicial da empresa inviável com arrecadação de bens e rateio proporcional segundo a ordem estrita da lei.' },
+              { t: 'Insolvência Presumida (Art. 94)', d: 'I - Impontualidade injustificada (> 40 SM protestados); II - Execução frustrada (tríplice omissão sem limite de valor); III - Atos de falência.' },
+              { t: 'Termo Legal & Ineficácia Objetiva (Art. 129)', d: 'Retroação de até 90 dias. Ineficácia objetiva de pagamentos antecipados ou garantias independentemente de dolo.' },
+              { t: 'Ordem Rígida: Extraconcursais (84) e Concursais (83)', d: 'Extraconcursais têm prioridade absoluta (despesas, restituições, financiador). Concursais seguem: trabalhista, real, fiscal, quirografário.' }
             ],
             secoes: [
               {
-                titulo: '1ª Seção — Pressupostos, Insolvência Presumida e Procedimento Pré-Falimentar',
+                titulo: '1ª Seção – Conceito, Pressupostos e Legitimidade na Falência (Item 16)',
                 topicos: [
                   {
                     id: 'emp-5-1',
-                    titulo: 'Conceito de Falência, Finalidades e os 3 Pressupostos Estruturais',
+                    titulo: 'Conceito de Falência, Finalidade e os 3 Pressupostos Estruturais',
                     fundamento: 'Arts. 75 a 82-A da Lei nº 11.101/2005',
-                    conteudo: 'A <strong>Falência</strong> é o processo judicial de execução concursal coletiva do empresário ou sociedade empresária insolvente, destinado a liquidar e realizar os ativos patrimoniais para satisfação equitativa do passivo, expurgando do mercado a atividade inviável (Art. 75).<br><br>• <strong>Os 3 Pressupostos Essenciais da Falência:</strong><br>1) <em>Qualidade de Empresário (Pressuposto Subjetivo):</em> Exige-se que o devedor seja empresário individual (regular ou irregular - Art. 97, § 1º) ou sociedade empresária (Arts. 966 e 982 do CC). Não se aplica a cooperativas, associações ou sociedades simples de advogados;<br>2) <em>Insolvência Jurídica / Presumida (Pressuposto Objetivo):</em> Caracterizada pelas hipóteses estritas tipificadas no Art. 94 da LRE;<br>3) <em>Sentença Judicial Declaratória de Falência (Pressuposto Formal):</em> Proferida pelo juízo competente com conteúdo vinculante (Art. 99);<br>• <strong>Legitimidade Passiva nas Sociedades:</strong> Sociedades em comum (sem registro - Art. 990 CC) respondem solidária e ilimitadamente; nas sociedades limitadas e anônimas a responsabilidade dos sócios rege-se pelos Arts. 81 e 82 da LRE;<br>• <strong>Legitimidade Ativa (Art. 97):</strong> Podem requerer a falência: o próprio devedor (autofalência), o cônjuge sobrevivente ou herdeiros, o cotista ou acionista, e qualquer credor titular de título exigível (ressalvado o empresário irregular que não pode pedir falência de terceiro - Art. 97, § 1º).',
-                    exemplo: 'Credor que possui título executivo vencido e protestado contra sociedade limitada com registro na Junta Comercial tem plena legitimidade ativa para requerer a decretação de sua quebra.'
+                    conteudo: 'A <strong>Falência</strong> é um processo judicial de execução concursal coletiva do empresário ou sociedade empresária juridicamente insolvente. Seu objetivo central é promover a liquidação ordenada e célere da atividade inviável, arrecadando bens para pagar os credores e alocando os ativos produtivos na economia.<br><br><strong>Os 3 Pressupostos Estruturais da Falência:</strong><br>1. <strong>Devedor empresário:</strong> sujeito legitimado passivo da LRE (art. 1º);<br>2. <strong>Insolvência jurídica / presumida:</strong> caracterizada por qualquer das hipóteses taxativas do art. 94;<br>3. <strong>Sentença judicial declaratória da falência:</strong> decisão constitutiva proferida pelo juízo universal (art. 99).<br><br><strong>Destaque da Jurisprudência:</strong> NÃO é indispensável demonstrar que todas as dívidas superam todo o patrimônio para decretar a falência: basta a presença de uma das presunções legais de quebra.',
+                    exemplo: 'Empresa dona de fazendas avaliadas em milhões que deixa de pagar títulos protestados acima de 40 salários mínimos pode ter sua falência decretada por impontualidade injustificada presumida.'
                   },
                   {
                     id: 'emp-5-2',
-                    titulo: 'Insolvência Presumida (Art. 94): Impontualidade, Frustração de Execução e Atos Falimentares',
-                    fundamento: 'Arts. 94, 97, I e 105 da Lei nº 11.101/2005',
-                    conteudo: 'A Lei nº 11.101/2005 adota o sistema da <strong>insolvência presumida</strong>, que dispensa a comprovação contábil de que o passivo é maior que o ativo, bastando a ocorrência de uma das três situações do <strong>Artigo 94:</strong><br><br>1. <strong>Impontualidade Injustificada (Art. 94, I):</strong> O devedor que, sem relevante razão de direito, não paga no vencimento obrigação líquida materializada em título executivo judicial ou extrajudicial protestado cuja soma <strong>ultrapasse o valor equivalente a 40 salários mínimos</strong> na data do pedido. Admite-se a formação de litisconsórcio ativo de credores para atingir o teto de 40 salários mínimos;<br>2. <strong>Frustração da Execução / Tríplice Omissão (Art. 94, II):</strong> O devedor executado por qualquer quantia (<em>dispensa valor mínimo de 40 salários mínimos e dispensa protesto</em>) que, no prazo legal: 1) não paga, 2) não deposita o montante e 3) não nomeia bens suficientes à penhora. O credor obtém certidão comprobatória da tríplice omissão no juízo da execução e distribui o pedido falimentar;<br>3. <strong>Prática de Atos de Falência (Art. 94, III):</strong> Prática de condutas ruinosas tipificadas na lei que evidenciam o desespero financeiro: liquidação precipitada de bens, uso de meios ruinosos para obter recursos, convocação de credores para propor dilação sem garantias, transferência simulada de estabelecimento sem anuência dos credores (trespasse irregular) ou abandono do estabelecimento comercial;<br>• <strong>Autofalência (Arts. 97, I e 105):</strong> O empresário ou sociedade que julgar que não reúne condições de pagar suas dívidas ou prosseguir em recuperação tem o dever legal de requerer a autofalência em juízo instruída com balanço patrimonial e relação de credores.',
-                    exemplo: 'Credor que move execução individual por quantia de R$ 15.000,00 vê o devedor citado manter-se inerte sem pagar nem indicar bens: o exequente obtém certidão da tríplice omissão e requer a falência com base no Art. 94, II, independentemente de teto de 40 salários mínimos.'
+                    titulo: 'Legitimidade Passiva: Sociedades em Comum, SCP e Sociedades Ilimitadas',
+                    fundamento: 'Arts. 1º e 81 da LRE | Arts. 990 e 994 do Código Civil',
+                    conteudo: 'A sujeição passiva à falência atinge tanto o empresário regular quanto o <strong>empresário irregular</strong> (sem inscrição na Junta Comercial).<br><br><strong>Efeitos da Quebra sobre os Sócios:</strong><br>• <strong>Sociedade em Comum (Art. 990 CC):</strong> Sociedade não registrada: os sócios respondem solidária e ilimitadamente pelas dívidas sociais, sem benefício de ordem;<br>• <strong>Sociedade em Conta de Participação (SCP):</strong> A falência do <strong>sócio ostensivo</strong> dissolve a sociedade e liquida a conta, passando o crédito do sócio participante a quirografário (art. 994, § 2º CC). Falindo o participante, o contrato rege-se pelos contratos bilaterais;<br>• <strong>Sociedades de Responsabilidade Ilimitada (Art. 81 LRE):</strong> Na sociedade em nome coletivo ou comandita simples, a falência da pessoa jurídica <strong>acarreta automaticamente a falência dos sócios de responsabilidade ilimitada</strong>;<br>• <strong>Sociedades Limitadas e S/A (Art. 82-A):</strong> A falência da sociedade <strong>NÃO se estende</strong> automaticamente aos sócios ou acionistas.',
+                    exemplo: 'Se uma sociedade em nome coletivo vai à falência, todos os seus sócios são falimentados juntos (art. 81). Já na quebra de uma Sociedade Limitada (LTDA), o patrimônio pessoal dos sócios fica a salvo, salvo desconsideração por fraude.'
                   },
                   {
                     id: 'emp-5-3',
-                    titulo: 'Procedimento Pré-Falimentar: Citação, Defesa e Depósito Elisivo',
-                    fundamento: 'Arts. 96 a 98 da Lei nº 11.101/2005',
-                    conteudo: 'Distribuído o pedido de falência formulado pelo credor, o juiz determina a <strong>citação do devedor</strong> para apresentar contestação no <strong>prazo de 10 dias corridos</strong> (Art. 98).<br><br>• <strong>O Depósito Elisivo (Art. 98, parágrafo único):</strong> No prazo de 10 dias da citação, o devedor pode depositar em conta judicial o valor total do crédito reclamado acrescido de correção monetária, juros e honorários advocatícios. O depósito elisivo <strong>elide de forma absoluta a decretação da falência</strong>, transformando a lide em mera ação de cobrança no juízo falimentar. <em>Importante:</em> O depósito elisivo só é cabível nos pedidos fundamentados nos incisos I e II do Art. 94 (não cabe no inciso III - atos de falência);<br>• <strong>Matérias de Defesa / Impontualidade Justificada (Art. 96):</strong> O devedor pode alegar em contestação fatos impeditivos da falência: falsidade do título, prescrição da obrigação cambial, nulidade da obrigação ou do protesto, quitação integral prévia, vício formal de notificação e pedido tempestivo de Recuperação Judicial (Art. 95);<br>• <strong>Pedido de Recuperação Judicial no Prazo da Contestação (Art. 95):</strong> O devedor citado em pedido falimentar pode, no próprio prazo de 10 dias da contestação, formular pedido formal de Recuperação Judicial se preenchidos os requisitos do Art. 48, obstando a quebra.',
-                    exemplo: 'Sociedade citada em pedido de falência fundamentado em duplicata mercantil sem causa comprova a ausência de entrega das mercadorias: o juiz denega a falência com base no Art. 96, II e extingue o procedimento.'
-                  },
-                  {
-                    id: 'emp-5-4',
-                    titulo: 'Sentença Declaratória de Falência e Sistema Recursal (Art. 100)',
-                    fundamento: 'Arts. 99 a 101 da Lei nº 11.101/2005',
-                    conteudo: 'Não havendo depósito elisivo nem acolhida a matéria defensiva do devedor, o magistrado proferirá a <strong>Sentença Declaratória de Falência (Art. 99)</strong>.<br><br>• <strong>Conteúdo Vinculante da Sentença (Art. 99):</strong> 1) Fixação do termo legal da falência (período suspeito que pode retroagir até 90 dias da data do pedido ou do primeiro protesto); 2) Nomeação do Administrador Judicial; 3) Ordem para expedição de mandado de arrecadação de bens e livros contábeis do falido; 4) Suspensão de todas as execuções individuais (vis atractiva); 5) Inabilitação empresarial do devedor; 6) Intimação do Ministério Público e expedição de edital convocando os credores para habilitarem seus créditos em 15 dias;<br>• <strong>Sistema Recursal Falimentar (Art. 100):</strong><br>- <em>Sentença que DECRETA a falência:</em> O recurso cabível é o <strong>AGRAVO DE INSTRUMENTO</strong>. Tem efeito meramente devolutivo como regra;<br>- <em>Sentença que DENEGA / INDEFERE a falência:</em> O recurso cabível é a <strong>APELAÇÃO</strong>;<br>• <strong>Indenização por Pedido Falimentar Malicioso ou Culposo (Art. 101):</strong> Quem por dolo pleitear a falência de outrem sem fundamento legítimo será condenado a indenizar o devedor por perdas e danos e despesas processuais apuradas em liquidação.',
-                    exemplo: 'Empresa cuja falência foi indevidamente decretada pelo juiz de primeiro grau interpõe Agravo de Instrumento perante o Tribunal de Justiça postulando a concessão de efeito suspensivo imediato para reverter a quebra (Art. 100).'
+                    titulo: 'Legitimidade Ativa: Autofalência e Falência Requerida por Credor com Registro Regular',
+                    fundamento: 'Arts. 97, 105 a 107 da Lei nº 11.101/2005',
+                    conteudo: 'Podem requerer a falência (Art. 97):<br>1. O próprio devedor (<strong>autofalência</strong>);<br>2. O cônjuge sobrevivente, qualquer herdeiro do devedor ou inventariante;<br>3. O cotista ou acionista da sociedade, na forma da lei ou do contrato social;<br>4. <strong>Qualquer credor</strong> (nacional ou estrangeiro, quirografário ou com garantia real).<br><br><strong>Condição do Credor Empresário (Art. 97, § 1º):</strong> O credor que exerça atividade empresária somente pode requerer a falência de terceiro se comprovar a <strong>regularidade de suas próprias atividades</strong> mediante certidão do Registro Público de Empresas Mercantis (Junta Comercial). O empresário irregular não tem essa legitimidade ativa.',
+                    exemplo: 'Comerciante que opera informalmente sem CNPJ e sem Junta Comercial não pode pedir a falência judicial de um devedor com base em duplicatas não pagas.'
                   }
                 ]
               },
               {
-                titulo: '2ª Seção — Efeitos da Falência e Realização do Ativo',
+                titulo: '2ª Seção – Procedimento Pré-Falimentar, Defesas e Depósito Elisivo (Item 17)',
                 topicos: [
                   {
+                    id: 'emp-5-4',
+                    titulo: 'Os 3 Sinais Legais de Insolvência Presumida (Art. 94, I, II e III da LRE)',
+                    fundamento: 'Art. 94, I, II e III da Lei nº 11.101/2005',
+                    conteudo: 'A falência do devedor pode ser decretada com base em 3 fundamentos alternativos de insolvência presumida:<br><br>1. <strong>Impontualidade Injustificada (Art. 94, I):</strong> Não pagamento de dívida líquida, vencida e exigível materializada em título executivo protestado cuja soma <strong>ultrapasse 40 salários mínimos</strong> na data do pedido (admite litisconsórcio de credores para somar títulos);<br>2. <strong>Execução Frustrada / Tríplice Omissão (Art. 94, II):</strong> Executado por qualquer quantia líquida, o devedor <strong>não paga, não deposita e não nomeia bens à penhora</strong> no prazo legal. A prova é feita por <strong>certidão do juízo da execução</strong>. <em>ATENÇÃO:</em> Aqui <strong>NÃO se exige protesto nem o valor mínimo de 40 salários mínimos</strong>!<br>3. <strong>Atos de Falência (Art. 94, III):</strong> Prática de condutas lesivas como alienação precipitada, transferência simulada de ativos ou abandono do estabelecimento sem deixar representante.',
+                    exemplo: 'Credor com título judicial de R$ 3.000,00 executa a devedora e ela não paga nem indica bens: o credor pede a certidão da tríplice omissão e requer a falência pelo art. 94, II, independentemente de protesto ou de 40 salários mínimos.'
+                  },
+                  {
                     id: 'emp-5-5',
-                    titulo: 'Efeitos da Falência sobre a Pessoa do Falido, Bens e Contratos Bilaterais',
-                    fundamento: 'Arts. 102 a 128 e Art. 117 da Lei nº 11.101/2005',
-                    conteudo: 'A sentença declaratória de falência irradia efeitos profundos em múltiplas esferas jurídicas:<br><br>• <strong>Efeitos sobre a Pessoa do Falido (Arts. 102 a 104):</strong> Perda do direito de administrar e dispor de seus bens; inabilitação para exercer qualquer atividade empresarial até a sentença de extinção das obrigações; dever de comparecer a todos os atos da falência e prestar informações fidedignas ao AJ;<br>• <strong>Efeitos sobre o Patrimônio:</strong> Arrecadação física universal de todos os bens móveis, imóveis e livros fiscais pela administração judicial (Art. 108), formando-se a <em>Massa Falida Objetiva</em>;<br>• <strong>Efeitos sobre os Contratos Bilaterais (Art. 117):</strong> Os contratos bilaterais não se extinguem compulsoriamente com a falência: cabe ao Administrador Judicial, mediante autorização do Comitê de Credores ou do juiz, decidir se cumpre ou rescinde o contrato, optando pelo cumprimento se este reduzir ou evitar o aumento do passivo da massa falida ou for indispensável à conservação dos ativos;<br>• <strong>Ações Revocatórias e Atos Ineficazes (Arts. 129 e 130):</strong> São ineficazes perante a massa falida atos praticados no termo legal como pagamento de dívidas não vencidas, constituição de garantias reais para dívidas preexistentes ou doações de patrimônio.',
-                    exemplo: 'Devedor que hipotecou imóvel da empresa para garantir empréstimo antigo a banco dentro do período de 90 dias do termo legal da falência vê o ato ser declarado nulo de pleno direito nos termos do Art. 129, II da LRE.'
+                    titulo: 'Citação, Contestação em 10 Dias, Possibilidade de Pedir RJ e Depósito Elisivo',
+                    fundamento: 'Arts. 95, 96 e 98 da Lei nº 11.101/2005',
+                    conteudo: 'Citado no pedido de falência, o devedor dispõe do prazo de <strong>10 dias</strong> para se defender (Art. 98).<br><br><strong>Condutas Possíveis do Devedor:</strong><br>• <strong>Apresentar Contestação:</strong> alegando nulidade do título, falsidade, prescrição, quitação integral ou vício no protesto (Art. 96);<br>• <strong>Pedir Recuperação Judicial:</strong> dentro dos 10 dias da contestação, o devedor pode requerer a RJ, se preencher os requisitos (Art. 95);<br>• <strong>Efetuar Depósito Elisivo (Art. 98, parágrafo único):</strong> depositar em juízo o valor total da dívida acrescido de correção monetária, juros e honorários advocatícios.<br><br><strong>Efeito do Depósito Elisivo:</strong> Afasta de forma cabal a decretação da falência fundada em impontualidade ou execução frustrada (Art. 94, I e II). <em>ATENÇÃO:</em> O depósito elisivo <strong>NÃO é admitido</strong> para afastar o pedido fundado em atos de falência (Art. 94, III).',
+                    exemplo: 'Empresa citada por título protestado de 50 salários mínimos efetua o depósito elisivo integral em juízo dentro de 10 dias; o juiz extingue o processo falimentar e autoriza o credor a levantar a quantia depositada.'
                   },
                   {
                     id: 'emp-5-6',
-                    titulo: 'Classificação e Ordem Legal de Pagamento dos Créditos Falimentares',
-                    fundamento: 'Arts. 83 e 84 da Lei nº 11.101/2005 (Lei nº 14.112/2020)',
-                    conteudo: 'Arrecadados e vendidos os ativos em leilão judicial (Art. 142), o Administrador Judicial efetua os pagamentos aos credores obedecendo à rigorosa preferência legal.<br><br>• <strong>1º Lugar — Créditos Extraconcursais (Art. 84):</strong> São pagos com precedência absoluta sobre todos os créditos concursais. Compreendem despesas indispensáveis à administração da falência, remuneração do Administrador Judicial, custas judiciais, obrigações assumidas pelo falido durante a recuperação judicial e financiamento autorizado (DIP Financing);<br><br>• <strong>2º Lugar — Créditos Concursais na Estrita Ordem do Artigo 83:</strong><br>1. <em>Créditos Trabalhistas (Art. 83, I):</em> Limitados a <strong>150 salários mínimos por credor</strong> e os decorrentes de acidentes de trabalho sem limite (a fração que exceder 150 salários mínimos migra para os quirografários);<br>2. <em>Créditos com Garantia Real (Art. 83, II):</em> Até o limite do valor do bem gravado (hipoteca, penhor, anticrese);<br>3. <em>Créditos Tributários (Art. 83, III):</em> Independentemente da natureza ou tempo de constituição, excetuadas as multas tributárias;<br>4. <em>Créditos Quirografários (Art. 83, VI):</em> Créditos comuns de fornecedores, saldo de garantias reais não cobertas pelo bem e o excedente trabalhista acima de 150 salários mínimos;<br>5. <em>Créditos Subordinados:</em> Só são pagos após a satisfação integral de todos os demais (créditos de sócios ou administradores sem vínculo empregatício).',
-                    exemplo: 'Massa falida apura R$ 3.000.000,00 com a venda do galpão industrial em leilão: paga primeiro as custas e a remuneração do administrador judicial (extraconcursais), em seguida os ex-funcionários até 150 salários mínimos cada, antes de repassar qualquer valor à Fazenda Nacional ou credores quirografários.'
+                    titulo: 'Sentença Pré-Falimentar, Sistema Recursal (Art. 100) e Indenização por Dolo do Credor',
+                    fundamento: 'Arts. 100 e 101 da Lei nº 11.101/2005',
+                    conteudo: 'Concluído o rito pré-falimentar, o juiz profere decisão:<br><br><strong>Sistema Recursal Falimentar (Art. 100):</strong><br>• Da decisão que <strong>DECRETA a falência</strong> cabe <strong>Agravo de Instrumento</strong>;<br>• Da sentença que <strong>JULGA IMPROCEDENTE (DENEGA) a falência</strong> cabe <strong>Apelação</strong>.<br><br><strong>Indenização por Pedido Doloso (Art. 101):</strong> Quem requerer a falência de terceiro por dolo, má-fé ou emulação para constranger o devedor, sendo o pedido julgado improcedente, será condenado a indenizar perdas e danos apurados em liquidação.',
+                    exemplo: 'Se o juiz julga improcedente o pedido do credor, este deve interpor apelação. Se decretar a quebra, a empresa deve recorrer por agravo de instrumento perante o Tribunal de Justiça.'
+                  }
+                ]
+              },
+              {
+                titulo: '3ª Seção – Sentença Declaratória de Falência e Fixação do Termo Legal (Item 18)',
+                topicos: [
+                  {
+                    id: 'emp-5-7',
+                    titulo: 'Conteúdo Obrigatório da Sentença Declaratória de Falência (Art. 99)',
+                    fundamento: 'Art. 99 da Lei nº 11.101/2005',
+                    conteudo: 'A sentença que decreta a falência transforma o processo individual em concurso universal e produz determinações cogentes:<br><br>1. Síntese do relatório e identificação precisa do falido e administradores;<br>2. <strong>Fixação do Termo Legal</strong> da falência (art. 99, II);<br>3. <strong>Nomeação do Administrador Judicial (AJ)</strong>;<br>4. Ordem para que o falido apresente relação de credores em <strong>5 dias</strong> (se não estiver nos autos);<br>5. Fixação do prazo de <strong>15 dias</strong> para habilitações e divergências de créditos ao AJ;<br>6. <strong>Suspensão de ações e execuções</strong> contra o falido e proibição de disposição patrimonial;<br>7. Decisão sobre a <strong>continuação provisória da atividade</strong> (se útil à preservação do valor dos ativos) ou <strong>lacração</strong> do estabelecimento;',
+                    exemplo: 'O magistrado decreta a falência, nomeia o administrador judicial e ordena ao falido que junte aos autos em 5 dias a lista atualizada de empregados e fornecedores para publicação de edital.'
+                  },
+                  {
+                    id: 'emp-5-8',
+                    titulo: 'O que é o Termo Legal da Falência: Retroação de até 90 Dias e Função Fiscalizatória',
+                    fundamento: 'Art. 99, II da Lei nº 11.101/2005',
+                    conteudo: 'O <strong>Termo Legal da Falência</strong> marca uma linha do tempo anterior à decretação da quebra, fixada pelo juiz para fiscalizar atos que possam ter fraudado ou favorecido credores em detrimento da coletividade.<br><br><strong>Critério Legal de Retroação (Art. 99, II):</strong><br>O juiz pode retroagir o termo legal por <strong>no máximo 90 dias</strong> contados:<br>• Do primeiro protesto por falta de pagamento (não cancelado); OU<br>• Do protocolo do pedido de falência; OU<br>• Do protocolo do pedido de recuperação judicial anterior.<br><br><em>REGRA DE OURO:</em> O termo legal <strong>NÃO é um novo prazo para pagar dívidas</strong>, mas sim uma baliza temporal retroativa para avaliar a ineficácia dos atos jurídicos praticados pelo devedor.',
+                    exemplo: 'Falência decretada em 1º de outubro com 1º protesto ocorrido em 1º de julho: o juiz retroage o termo legal para até 90 dias antes do protesto para anular garantias suspeitas concedidas pelo falido àquela época.'
+                  }
+                ]
+              },
+              {
+                titulo: '4ª Seção – Ineficácia Objetiva, Ação Revocatória e Responsabilidade dos Sócios (Item 19)',
+                topicos: [
+                  {
+                    id: 'emp-5-9',
+                    titulo: 'Os Três Momentos dos Atos do Devedor e a Ineficácia Objetiva do Art. 129',
+                    fundamento: 'Arts. 103 e 129 da Lei nº 11.101/2005',
+                    conteudo: 'A validade e eficácia dos atos do devedor dividem-se em <strong>3 momentos cronológicos</strong>:<br>1. <strong>Antes do termo legal:</strong> atos válidos no regime comum, sujeitos apenas à anulação por fraude contra credores do Código Civil;<br>2. <strong>Durante o termo legal:</strong> regime da <strong>ineficácia objetiva (Art. 129)</strong>;<br>3. <strong>Após a decretação da falência:</strong> perda da administração (art. 103): qualquer ato de disposição do falido é ineficaz de pleno direito perante a massa.<br><br><strong>Hipóteses de Ineficácia Objetiva (Art. 129):</strong><br>São ineficazes perante a massa, <strong>independentemente de dolo, fraude ou má-fé do contratante</strong>:<br>• Pagamento antecipado de dívidas não vencidas dentro do termo legal;<br>• Pagamento de dívida vencida dentro do termo legal em forma não prevista (dação em pagamento de bens em vez de dinheiro);<br>• Constituição de garantia real (hipoteca, penhor) no termo legal para dívida contraída anteriormente;<br>• Prática de atos gratuitos (doações) ou renúncia de herança no biênio anterior à decretação.',
+                    exemplo: 'Devedor que transfere imóvel para quitar nota promissória no período do termo legal tem o ato declarado ineficaz pelo juiz: o imóvel volta para a massa falida, pois dívida em dinheiro deve ser paga em dinheiro.'
+                  },
+                  {
+                    id: 'emp-5-10',
+                    titulo: 'Ação Revocatória por Fraude Falimentar (Arts. 130 a 138) e Prazo Decadencial de 3 Anos',
+                    fundamento: 'Arts. 130 a 138 da Lei nº 11.101/2005',
+                    conteudo: 'Diferentemente da ineficácia objetiva, a <strong>Ação Revocatória Falimentar (Art. 130)</strong> atinge negócios praticados com efetivo intuito de fraudar credores.<br><br><strong>Requisitos Cumulativos:</strong><br>1. Intenção manifesta de prejudicar credores (consilium fraudis);<br>2. Conluio fraudulento entre o devedor e o terceiro contratante;<br>3. Prejuízo patrimonial efetivo à massa falida (eventus damni).<br><br><strong>Legitimidade e Prazo:</strong> Proposta pelo Administrador Judicial, por qualquer credor ou pelo Ministério Público perante o juízo falimentar no <strong>prazo decadencial de 3 anos</strong> contado da decretação da falência (art. 132). Julgada procedente, os bens retornam à massa ou indeniza-se o equivalente em dinheiro.',
+                    exemplo: 'Empresário vende veículos de luxo para cunhado por 10% do valor real meses antes da quebra: o AJ ingressa com ação revocatória do art. 130 em até 3 anos para reaver os veículos para a arrecadação.'
+                  },
+                  {
+                    id: 'emp-5-11',
+                    titulo: 'Responsabilidade Pessoal de Sócios, Controladores e Administradores (Arts. 81, 82 e 82-A)',
+                    fundamento: 'Arts. 81, 82 e 82-A da LRE | Art. 50 do Código Civil | Arts. 133 a 137 do CPC',
+                    conteudo: 'A decretação da falência da sociedade limitada ou anônima <strong>NÃO atinge automaticamente os sócios</strong> (Art. 82-A).<br><br><strong>Mecanismos de Responsabilização:</strong><br>• <strong>Ação de Responsabilidade Pessoal (Art. 82):</strong> Proposta no próprio juízo falimentar para apurar responsabilidade dos administradores/sócios por obrigações decorrentes de atos com culpa ou dolo. <strong>Prazo prescricional:</strong> 2 anos contados do trânsito em julgado da sentença de encerramento da falência;<br>• <strong>Desconsideração da Personalidade Jurídica (IDPJ):</strong> Exige rigorosa comprovação dos requisitos do art. 50 do CC (desvio de finalidade ou confusão patrimonial) e observância do incidente processual dos arts. 133 a 137 do CPC.',
+                    exemplo: 'Sócio-administrador que esvaziou as contas da empresa para sua conta pessoal antes da quebra pode ter sua responsabilidade apurada pelo art. 82 no juízo falimentar no prazo de 2 anos.'
+                  }
+                ]
+              },
+              {
+                titulo: '5ª Seção – Efeitos da Falência sobre Credores e Obrigações (Item 20)',
+                topicos: [
+                  {
+                    id: 'emp-5-12',
+                    titulo: 'Massa Falida Objetiva e Subjetiva e Perda da Administração dos Bens (Art. 103)',
+                    fundamento: 'Arts. 102 e 103 da Lei nº 11.101/2005',
+                    conteudo: 'Com a decretação da falência, o devedor perde o direito de administrar e dispor de seus bens, ocorrendo o <strong>desapossamento</strong> (o patrimônio passa a ser administrado pelo AJ).<br><br><strong>A Massa Falida desdobra-se em:</strong><br>• <strong>Massa Falida Objetiva:</strong> O conjunto arrecadado de bens, direitos, créditos e ativos do falido;<br>• <strong>Massa Falida Subjetiva:</strong> A comunhão de credores submetidos ao processo falimentar e representados pelo AJ.<br><br>O falido conserva o direito de acompanhar a fiscalização do processo, formular pedidos e defender seus interesses legítimos nos autos.',
+                    exemplo: 'O empresário falido não pode mais assinar cheques, vender maquinários ou outorgar procurações em nome da empresa; todos os atos passam com exclusividade ao AJ.'
+                  },
+                  {
+                    id: 'emp-5-13',
+                    titulo: 'Vencimento Antecipado das Dívidas, Conversão Monetária e Suspensão dos Juros (Art. 124)',
+                    fundamento: 'Arts. 77 e 124 da Lei nº 11.101/2005',
+                    conteudo: 'A decretação da quebra irradia efeitos patrimoniais imediatos:<br><br>• <strong>Vencimento Antecipado (Art. 77):</strong> Todas as dívidas a termo do falido consideram-se vencidas de imediato, com abatimento proporcional dos juros futuros;<br>• <strong>Conversão de Moeda Estrangeira:</strong> Créditos fixados em moeda estrangeira são convertidos para reais pelo câmbio do dia em que a falência for decretada;<br>• <strong>Suspensão dos Juros Pós-Falência (Art. 124):</strong> Não correm contra a massa falida juros posteriores à quebra se o ativo apurado não bastar para pagar todo o passivo subordinado.<br><em>Exceção aos Juros:</em> Os juros de debêntures e créditos com garantia real continuam correndo, porém limitados ao produto apurado na alienação do próprio bem gravado.',
+                    exemplo: 'Dívida em moeda estrangeira de US$ 10.000 é liquidada em reais pelo valor do dólar oficial na data da sentença de quebra. Juros após essa data só serão pagos se sobrar dinheiro na massa.'
+                  },
+                  {
+                    id: 'emp-5-14',
+                    titulo: 'Dívidas Solidárias, Ajuste entre Massas e Sanção por Má-Fé na Formação de Crédito (Art. 152)',
+                    fundamento: 'Arts. 127 e 152 da Lei nº 11.101/2005',
+                    conteudo: '<strong>Dívidas Solidárias (Art. 127):</strong> Havendo coobrigados solidários falidos, o credor pode concorrer pela totalidade do seu crédito em cada uma das massas falidas, até a integral satisfação de sua dívida. O ressarcimento proporcional (regresso) ocorre diretamente entre as massas falidas.<br><br><strong>Sanção por Má-Fé (Art. 152):</strong> O credor que tiver constituído seu crédito ou sua garantia real com dolo, simulação ou má-fé será condenado à <strong>restituição em dobro</strong> de todas as quantias que houver recebido da massa, corrigidas e acrescidas dos juros legais.',
+                    exemplo: 'Credor que simulou com o falido nota fiscal fria para forjar crédito trabalhista fraudulento perde o crédito e é obrigado a devolver em dobro o que recebeu da massa falida.'
+                  }
+                ]
+              },
+              {
+                titulo: '6ª Seção – Classificação Rígida de Créditos Extraconcursais e Concursais (Itens 21 a 24)',
+                topicos: [
+                  {
+                    id: 'emp-5-15',
+                    titulo: 'Créditos Extraconcursais (Art. 84): Ordem de Pagamento Prioritário Absoluto',
+                    fundamento: 'Art. 84 da Lei nº 11.101/2005 (Redação da Lei nº 14.112/2020)',
+                    conteudo: 'Os <strong>créditos extraconcursais são pagos com prioridade absoluta</strong> sobre todos os créditos concursais do art. 83, respeitando sua própria hierarquia interna:<br><br><strong>Ordem do Art. 84:</strong><br>1. <strong>I-A:</strong> Despesas indispensáveis da administração (arts. 150/151) e <strong>créditos salariais estritos dos últimos 3 meses até 5 salários mínimos</strong> por trabalhador;<br>2. <strong>I-B:</strong> Financiamentos concedidos durante a recuperação judicial (DIP financing);<br>3. <strong>I-C:</strong> Créditos em dinheiro objeto de <strong>restituição</strong> (art. 86);<br>4. <strong>I-D:</strong> Remuneração do Administrador Judicial e de seus auxiliares, despesas do Comitê e créditos trabalhistas por serviços prestados após a falência;<br>5. <strong>I-E:</strong> Obrigações resultantes de atos jurídicos válidos na recuperação judicial (art. 67) ou pós-falência;<br>6. <strong>II:</strong> Quantias fornecidas à massa falida pelos credores;<br>7. <strong>III:</strong> Despesas de arrecadação, administração, leilão e custas da falência;<br>8. <strong>IV:</strong> Custas judiciais de ações em que a massa tenha sido vencida;<br>9. <strong>V:</strong> Tributos relativos a fatos geradores posteriores à decretação da falência.',
+                    exemplo: 'Salários dos funcionários que trabalharam nos últimos 3 meses antes da falência (até 5 salários mínimos) são pagos de imediato com dinheiro em caixa como extraconcursais (inciso I-A), antes mesmo de pagar a dívida trabalhista antiga ou tributos.'
+                  },
+                  {
+                    id: 'emp-5-16',
+                    titulo: 'Classificação dos Créditos Concursais (Art. 83): A Rigorosa Hierarquia Falimentar',
+                    fundamento: 'Art. 83 da Lei nº 11.101/2005 (Atualizado pela Lei nº 14.112/2020)',
+                    conteudo: 'Satisfeitos os créditos extraconcursais do art. 84, o saldo remanescente do ativo apurado paga os <strong>créditos concursais</strong> rigorosamente nesta ordem:<br><br>1º — <strong>Trabalhistas</strong> (limitados a <strong>150 salários mínimos</strong> por credor) e decorrentes de <strong>acidentes de trabalho</strong> (sem limite);<br>2º — <strong>Garantia Real</strong> (hipoteca, penhor, anticrese) <strong>até o valor do bem gravado</strong>;<br>3º — <strong>Tributários</strong> (impostos, taxas, contribuições), excluídas as multas fiscais;<br>4º — <strong>Quirografários</strong> (fornecedores sem garantia, saldo trabalhista que ultrapassar 150 salários mínimos e saldo não coberto da garantia real);<br>5º — <strong>Multas</strong> contratuais, pecuniárias por infrações penais ou administrativas, inclusive multas tributárias;<br>6º — <strong>Subordinados</strong> (créditos de sócios e administradores sem vínculo empregatício);<br>7º — <strong>Juros vencidos após a falência</strong> (nos termos do art. 124).<br><br><em>NOTA HISTÓRICA:</em> Os antigos incisos IV e V (privilégios especial e geral) foram <strong>revogados</strong> pela Lei nº 14.112/2020.',
+                    exemplo: 'Ex-gerente com crédito trabalhista de 180 salários mínimos: recebe até 150 salários mínimos na 1ª classe privilegiada. Os 30 salários mínimos restantes serão pagos na 4ª classe (quirografários).'
+                  },
+                  {
+                    id: 'emp-5-17',
+                    titulo: 'Roteiro Integrado: Do Pedido de Falência ao Rateio e Tabela de Prazos para Memorizar',
+                    fundamento: 'Fluxo Procedimental Completo dos Arts. 94 a 153 da Lei nº 11.101/2005',
+                    conteudo: '<strong>Resumo Prático do Fluxo Falimentar:</strong><br>1. Pedido pelo credor (Art. 94) ou autofalência (Arts. 105 a 107);<br>2. Citação do devedor com prazo de <strong>10 dias</strong> para contestar, pedir RJ ou efetuar depósito elisivo;<br>3. Sentença que decreta a quebra (Agravo) ou denega (Apelação);<br>4. Juiz fixa <strong>Termo Legal</strong> (retroação de até 90 dias);<br>5. Devedor junta lista de credores em <strong>5 dias</strong>; credores habilitam-se perante o AJ em <strong>15 dias</strong>;<br>6. AJ apura ineficácia objetiva (Art. 129) ou move ação revocatória por fraude (Art. 130 em até <strong>3 anos</strong>);<br>7. Arrecadação e leilão dos bens do ativo;<br>8. Pagamento prioritário das <strong>restituições e extraconcursais (Art. 84)</strong>;<br>9. Pagamento dos <strong>concursais (Art. 83)</strong> pelo rateio pro rata até esgotar o ativo apurado.<br><br><strong>Prazos Indispensáveis para Exames:</strong><br>• Defesa pré-falimentar: 10 dias;<br>• Relação de credores pelo falido: 5 dias;<br>• Termo legal máximo: 90 dias;<br>• Ação revocatória: 3 anos da sentença falimentar;<br>• Prescrição da responsabilidade do sócio (Art. 82): 2 anos do encerramento da falência;<br>• Habilitação máxima de crédito na falência: 3 anos da sentença (art. 10, § 10).',
+                    exemplo: 'O domínio da sucessão procedimental — citação (10d) -> termo legal (90d) -> revocatória (3 anos) -> art. 84 -> art. 83 — é o roteiro completo de aprovação em Direito Empresarial.'
                   }
                 ]
               }
@@ -4381,6 +4780,9 @@ const MATERIA = [
       }
     };
 
+
+
+// --- [DATA:02-ARVORE] FLUXOGRAMA_RECURSOS ---
 /* === FILE: js\data\fluxograma.js === */
     /* ==========================================================================
        ESTRUTURA DE DADOS COMPLETA DO FLUXOGRAMA DE RECURSOS (INTERATIVO)
@@ -4713,6 +5115,9 @@ const MATERIA = [
 
 
 
+
+
+// --- [DATA:03-MNEMONICOS] MNEMONICOS ---
 /* === FILE: js\data\mnemonicos.js === */
 /* ==========================================================================
        MURAL DE MNEMÔNICOS (REGRAS E MACETES DA JANAINA)
@@ -4817,6 +5222,9 @@ const MATERIA = [
       }
     ];
 
+
+
+// --- [DATA:04-CARDS] FLASHCARDS ---
 /* === FILE: js\data\flashcards.js === */
 /* ==========================================================================
        BANCO DE FLASHCARDS 3D (25 CARDS)
@@ -4862,6 +5270,9 @@ const MATERIA = [
       { categoria: 'Legislação Especial', pergunta: 'O que mudou na Injúria Racial com a promulgação da Lei nº 14.532/2023?', resposta: 'A injúria racial foi inserida no Art. 2º-A da Lei nº 7.716/1989 e formalmente equiparada aos crimes de racismo, tornando-se crime IMPRESCRITÍVEL e INAFIANÇÁVEL com pena de 2 a 5 anos de reclusão!', fundamento: 'Lei nº 14.532/2023 e Art. 5º, XLII da CF/88' }
     ];
 
+
+
+// --- [DATA:05-QUESTOES] QUESTOES ---
 /* === FILE: js\data\questoes.js === */
 /* ==========================================================================
        BANCO DE QUESTÕES ESTILO OAB (25 QUESTÕES)
@@ -5073,6 +5484,12 @@ const MATERIA = [
       }
     ];
 
+
+
+// ============================================================================
+// [JS:03-CORE] MOTOR, NUVEM & AUTENTICAÇÃO
+// ============================================================================
+// --- [CORE:01-FIREBASE] INTEGRAÇÃO CLOUD ---
 /* === FILE: js\core\firebase.js === */
         /* ==========================================================================
        CONFIGURAÇÃO NUVEM: GOOGLE FIREBASE
@@ -5261,6 +5678,9 @@ const MATERIA = [
     }
 
 
+
+
+// --- [CORE:02-STATE] GERENCIAMENTO DE ESTADO ---
 /* === FILE: js\core\state.js === */
     /* ==========================================================================
        ESTADO GLOBAL DA APLICAÇÃO
@@ -5376,6 +5796,9 @@ const MATERIA = [
     }
 
 
+
+
+// --- [CORE:03-AUTH] AUTENTICAÇÃO & CONTROLE DE ACESSO ---
 /* === FILE: js\core\auth.js === */
     /* ==========================================================================
        BASE DE DADOS DE USUÁRIOS & COMPRADORES AUTORIZADOS (SEGURANÇA JURISPASS)
@@ -6330,6 +6753,12 @@ const MATERIA = [
     var app = window.app;
 
 
+
+
+// ============================================================================
+// [JS:04-VIEWS] CONTROLADORES DE TELA (VIEW CONTROLLERS)
+// ============================================================================
+// --- [CTRL:01-HOME] CONTROLADOR DA TELA INICIAL ---
 /* === FILE: js\views\home.js === */
     /* ==========================================================================
        TELA INICIAL: VISÃO GERAL (PAINEL SAAS SEMELHANTE ÀS IMAGENS)
@@ -6356,7 +6785,7 @@ const MATERIA = [
 
       const dominadosCards = Object.keys(STATE.flashcardsDominados).filter(k => STATE.flashcardsDominados[k]).length;
 
-      app.innerHTML = `
+      getViewContainer('view-home').innerHTML = `
         <!-- Cabeçalho do Painel -->
         <div style="margin-bottom: 1.8rem;">
           <div style="display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:1rem">
@@ -6539,6 +6968,9 @@ const MATERIA = [
 
 
 
+
+
+// --- [CTRL:02-CODIGOS] CONTROLADOR DE CÓDIGOS & LEGISLAÇÃO ---
 /* === FILE: js\views\codigos.js === */
     /* ==========================================================================
        ABA DE CÓDIGOS (EM ATUALIZAÇÃO PARA INTEGRAÇÃO FUTURA)
@@ -6602,7 +7034,7 @@ const MATERIA = [
         }
       ];
 
-      app.innerHTML = `
+      getViewContainer('view-codigos').innerHTML = `
         <div style="margin-bottom: 2rem;">
           <div class="status-island">
             <span class="status-badge" style="background:var(--c-amber-glow); color:var(--c-amber)">Em Atualização</span>
@@ -6664,6 +7096,9 @@ const MATERIA = [
 
 
 
+
+
+// --- [CTRL:03-CONFIG] CONTROLADOR DE CONFIGURAÇÕES ---
 /* === FILE: js\views\configuracoes.js === */
     /* ==========================================================================
        ABA DE CONFIGURAÇÕES & PAINEL DE GESTÃO DE ALUNOS PAGOS
@@ -6681,7 +7116,7 @@ const MATERIA = [
       const totalBloqueados = todosAlunos.filter(u => u.status === 'bloqueado' || !u.pago).length;
       const whitelistCompradores = (typeof getCompradoresAutorizados === 'function') ? getCompradoresAutorizados() : [];
 
-      app.innerHTML = `
+      getViewContainer('view-configuracoes').innerHTML = `
         <div style="margin-bottom: 2rem;">
           <h2>Configurações do Sistema & Perfil</h2>
           <p style="margin-top:0.25rem">Ajuste o modo visual, dados da sua conta e gerencie os alunos autorizados com pagamento aprovado.</p>
@@ -7151,6 +7586,9 @@ const MATERIA = [
     };
 
 
+
+
+// --- [CTRL:04-PLANOS] CONTROLADOR DE PLANOS & ASSINATURA ---
 /* === FILE: js\views\planos.js === */
     /* ==========================================================================
        ABA DE PLANOS: MINHA ASSINATURA & GESTÃO DO PLANO ATUAL
@@ -7217,7 +7655,7 @@ const MATERIA = [
         'Flashcards diários fundamentais'
       ];
 
-      app.innerHTML = `
+      getViewContainer('view-planos').innerHTML = `
         <div style="margin-bottom: 2rem;">
           <div class="status-island">
             <span class="status-badge" style="background:var(--c-emerald-glow); color:var(--c-emerald)">
@@ -7479,6 +7917,9 @@ const MATERIA = [
     };
 
 
+
+
+// --- [CTRL:05-ARVORE] CONTROLADOR DA ÁRVORE DE RECURSOS ---
 /* === FILE: js\views\arvore.js === */
     /* ==========================================================================
        FLUXOGRAMA TOTALMENTE INTERATIVO & FUNCIONAL COM TRILHA (BREADCRUMBS)
@@ -7601,7 +8042,7 @@ const MATERIA = [
         `;
       }
 
-      app.innerHTML = `
+      getViewContainer('view-arvore').innerHTML = `
         <!-- Breadcrumb e Voltar para Matéria -->
         <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:1.5rem; flex-wrap:wrap; gap:0.8rem">
           <div style="display:flex; align-items:center; gap:0.5rem; font-size:0.88rem; color:var(--tx-muted)">
@@ -7716,6 +8157,9 @@ const MATERIA = [
 
 
 
+
+
+// --- [CTRL:06-MNEMONICOS] CONTROLADOR DE MNEMÔNICOS & MACETES ---
 /* === FILE: js\views\mnemonicos.js === */
     /* ==========================================================================
        MURAL DE MNEMÔNICOS (REGRAS DA JANAINA)
@@ -7724,7 +8168,7 @@ const MATERIA = [
       updateSidebarUI();
       const mat = MATERIAS_DIREITO[materiaKey] || MATERIAS_DIREITO['penal'];
 
-      app.innerHTML = `
+      getViewContainer('view-mnemonicos').innerHTML = `
         <!-- Breadcrumb e Voltar para Matéria -->
         <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:1.5rem; flex-wrap:wrap; gap:0.8rem">
           <div style="display:flex; align-items:center; gap:0.5rem; font-size:0.88rem; color:var(--tx-muted)">
@@ -7772,6 +8216,9 @@ const MATERIA = [
 
 
 
+
+
+// --- [CTRL:07-MATERIAS] CONTROLADOR DE MATÉRIAS & MÓDULOS ---
 /* === FILE: js\views\materias.js === */
     /* ==========================================================================
        TELA GERAL DE MATÉRIAS DE DIREITO (MÓDULOS DE ESTUDO)
@@ -7782,7 +8229,7 @@ const MATERIA = [
       const vistos = getTopicosVistosCount();
       const pctGlobal = totTopicos > 0 ? Math.round((vistos / totTopicos) * 100) : 0;
 
-      app.innerHTML = `
+      getViewContainer('view-materias').innerHTML = `
         <div style="margin-bottom: 2rem;">
           <div class="status-island" style="margin-bottom:0.75rem">
             <span class="status-badge" style="background:var(--c-blue-glow); color:var(--c-blue)">Matérias de Direito</span>
@@ -8042,7 +8489,8 @@ const MATERIA = [
       selectSecao(materiaKey, modIdx, 0);
     }
 
-    window.selectSecao = (materiaKey, modIdx, secIdx) => {
+    function selectSecao(materiaKey, modIdx, secIdx) {
+      window.selectSecao = selectSecao;
       if (typeof materiaKey === 'number') {
         secIdx = modIdx;
         modIdx = materiaKey;
@@ -8111,6 +8559,9 @@ const MATERIA = [
 
 
 
+
+
+// --- [CTRL:08-FLASHCARDS] CONTROLADOR DE FLASHCARDS 3D ---
 /* === FILE: js\views\flashcards.js === */
     /* ==========================================================================
        FLASHCARDS 3D
@@ -8139,7 +8590,7 @@ const MATERIA = [
         }
       }
 
-      app.innerHTML = `
+      getViewContainer('view-flashcards').innerHTML = `
         <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:1.5rem">
           <button class="btn-topic-action" style="max-width:130px" onclick="navigate('#/')">${SVG.arrowLeft} Início</button>
           <h2>Flashcards 3D (Flip Motion)</h2>
@@ -8222,6 +8673,9 @@ const MATERIA = [
 
 
 
+
+
+// --- [CTRL:09-QUESTOES] CONTROLADOR DO SIMULADO OAB ---
 /* === FILE: js\views\questoes.js === */
     /* ==========================================================================
        SIMULADO ESTILO OAB (25 QUESTÕES)
@@ -8234,7 +8688,7 @@ const MATERIA = [
       const totalRespondidas = Object.keys(STATE.respostasQuiz).length;
       const totalAcertos = QUESTOES.filter((q, i) => STATE.respostasQuiz[i] === q.correta).length;
 
-      app.innerHTML = `
+      getViewContainer('view-questoes').innerHTML = `
         <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:1.5rem">
           <button class="btn-topic-action" style="max-width:130px" onclick="navigate('#/')">${SVG.arrowLeft} Início</button>
           <h2>Simulado Estilo OAB & Concursos</h2>
@@ -8308,6 +8762,9 @@ const MATERIA = [
 
 
 
+
+
+// --- [CTRL:10-REVISAO] CONTROLADOR DE DÚVIDAS SALVAS ---
 /* === FILE: js\views\revisao.js === */
     /* ==========================================================================
        TELA DE DÚVIDAS SALVAS (MULTI-MATÉRIAS)
@@ -8334,7 +8791,7 @@ const MATERIA = [
         });
       }
 
-      app.innerHTML = `
+      getViewContainer('view-revisao').innerHTML = `
         <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:1.5rem">
           <button class="btn-topic-action" style="max-width:130px" onclick="navigate('#/')">${SVG.arrowLeft} Início</button>
           <h2>Dúvidas Salvas para Revisão</h2>
@@ -8382,6 +8839,9 @@ const MATERIA = [
 
 
 
+
+
+// --- [CTRL:11-BUSCA] CONTROLADOR DA BUSCA GLOBAL ---
 /* === FILE: js\views\busca.js === */
     /* ==========================================================================
        BUSCA GLOBAL INSTANTÂNEA (MULTI-MATÉRIAS)
@@ -8411,7 +8871,7 @@ const MATERIA = [
         });
       }
 
-      app.innerHTML = `
+      getViewContainer('view-busca').innerHTML = `
         <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:1.5rem">
           <button class="btn-topic-action" style="max-width:130px" onclick="navigate('#/')">${SVG.arrowLeft} Voltar</button>
           <h2>Resultados da Pesquisa: "${termo}"</h2>
@@ -8439,6 +8899,11 @@ const MATERIA = [
 
 
 
+
+
+// ============================================================================
+// [JS:05-ROUTER] ROTEADOR HASH & INICIALIZAÇÃO DO APP
+// ============================================================================
 /* === FILE: js\app.js === */
     /* ==========================================================================
        ROUTER DINÂMICO DA PLATAFORMA & PROTEÇÃO DE ROTAS
@@ -8567,6 +9032,7 @@ const MATERIA = [
     if (STATE.usuario && STATE.usuario.cadastrado && STATE.usuario.pago) {
       route();
     }
+
 
 
   </script>
