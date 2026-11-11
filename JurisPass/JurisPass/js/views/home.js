@@ -80,9 +80,7 @@ function renderHome() {
           </span>
           <span style="color: var(--tx-muted);">Graduação em Direito & 1ª Fase OAB</span>
           <span style="opacity: 0.3;">•</span>
-          <span style="display: inline-flex; align-items: center; gap: 0.3rem; color: var(--perf-mid); font-weight: 700;">
-            ${SVG.flame} ${STATE.streak || 1} dias de constância
-          </span>
+          <span style="color: var(--tx-body); font-weight: 600;">Metodologia Ativa de Estudo</span>
         </div>
 
         <h1 style="font-size: clamp(2rem, 3.2vw, 2.75rem); font-weight: 800; margin: 0 0 0.5rem; color: #ffffff; letter-spacing: -0.02em;">
@@ -138,14 +136,14 @@ function renderHome() {
         </div>
       </div>
 
-      <div class="kpi-card">
-        <div class="kpi-label">Constância de Foco</div>
+      <div class="kpi-card" onclick="navigate('#/materias')" style="cursor: pointer;" title="Nível de Preparação Jurídica">
+        <div class="kpi-label">Índice de Prontidão</div>
         <div class="kpi-value" style="color: #ffffff;">
-          ${STATE.streak || 1} <span style="font-size: 1.05rem; color: var(--tx-faint); font-weight: 500;">dias</span>
+          ${prontidaoScore}%
         </div>
-        <div class="kpi-sub" style="display: flex; align-items: center; gap: 0.35rem; color: var(--perf-mid);">
-          <span style="display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: var(--perf-mid);"></span>
-          Ritmo diário ativo
+        <div class="kpi-sub" style="display: flex; align-items: center; gap: 0.35rem; color: ${prontidaoCor};">
+          <span style="display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: ${prontidaoCor};"></span>
+          ${prontidaoStatus}
         </div>
       </div>
 

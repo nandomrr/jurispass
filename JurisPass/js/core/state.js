@@ -146,8 +146,5 @@ function updateSidebarUI() {
     const pct = planoExibicao === 'Master' ? 100 : Math.min(100, Math.round((totalRespondidas / numLimite) * 100));
     elFooterBar.style.width = `${Math.max(8, pct)}%`;
   }
-
-  const elStreak = document.getElementById('header-streak-count');
-  if (elStreak) elStreak.textContent = STATE.streak || 1;
 }
 window.updateSidebarUI = updateSidebarUI;
