@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
@@ -48,30 +48,40 @@
       --radius-pill: 9999px;
 
       --shadow-subtle: 0 4px 20px rgba(0, 0, 0, 0.35);
-      --shadow-float: 0 16px 40px -10px rgba(0, 0, 0, 0.5);
-      --shadow-glow: 0 0 35px -5px var(--c-emerald-glow);
-
-      --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-      --font-mono: 'JetBrains Mono', monospace;
+      --shadow-glow: 0 0 50px -10px rgba(79, 70, 229, 0.35);
     }
 
     * {
-      box-sizing: border-box;
       margin: 0;
       padding: 0;
+      box-sizing: border-box;
       -webkit-font-smoothing: antialiased;
     }
 
     body {
       background-color: var(--bg);
       color: var(--tx-main);
-      font-family: var(--font-sans);
-      line-height: 1.6;
+      font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
       overflow-x: hidden;
+      line-height: 1.6;
       font-size: 16px;
     }
 
-    /* Background Ambient Gradients */
+    /* Motion Reading Progress Bar */
+    #scroll-progress {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, #2563eb, #7c3aed, #10b981);
+      transform-origin: 0% 50%;
+      transform: scaleX(0);
+      z-index: 99999;
+      pointer-events: none;
+    }
+
+    /* Ambient Lighting Background */
     .ambient-bg {
       position: fixed;
       top: 0;
@@ -82,276 +92,332 @@
       z-index: 0;
       overflow: hidden;
     }
+
     .ambient-glow-1 {
       position: absolute;
-      top: -150px;
-      left: 10%;
-      width: 600px;
-      height: 600px;
-      background: radial-gradient(circle, rgba(37, 99, 235, 0.18) 0%, transparent 70%);
-      filter: blur(80px);
+      top: -15%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 800px;
+      height: 500px;
+      background: radial-gradient(circle, rgba(79, 70, 229, 0.18) 0%, rgba(37, 99, 235, 0.08) 50%, transparent 80%);
+      filter: blur(90px);
     }
+
     .ambient-glow-2 {
       position: absolute;
       top: 40%;
-      right: -100px;
-      width: 650px;
-      height: 650px;
-      background: radial-gradient(circle, rgba(124, 58, 237, 0.16) 0%, transparent 70%);
-      filter: blur(90px);
-    }
-    .ambient-glow-3 {
-      position: absolute;
-      bottom: -100px;
-      left: 20%;
+      left: -10%;
       width: 600px;
       height: 600px;
-      background: radial-gradient(circle, rgba(16, 185, 129, 0.14) 0%, transparent 70%);
-      filter: blur(90px);
+      background: radial-gradient(circle, rgba(124, 58, 237, 0.12) 0%, transparent 70%);
+      filter: blur(100px);
     }
 
-    /* Layout Containers */
+    .ambient-glow-3 {
+      position: absolute;
+      bottom: 10%;
+      right: -10%;
+      width: 700px;
+      height: 700px;
+      background: radial-gradient(circle, rgba(16, 185, 129, 0.1) 0%, transparent 70%);
+      filter: blur(120px);
+    }
+
     .container {
-      position: relative;
-      z-index: 1;
-      width: 100%;
-      max-width: 860px;
+      max-width: 1100px;
       margin: 0 auto;
       padding: 0 1.5rem;
+      position: relative;
+      z-index: 1;
     }
 
-    /* Barra Superior de Alerta e Escassez */
+    /* Top Urgency Bar */
     .top-bar {
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      background: rgba(15, 23, 42, 0.92);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      border-bottom: 1px solid var(--bd);
+      background: linear-gradient(90deg, rgba(37, 99, 235, 0.25), rgba(124, 58, 237, 0.25), rgba(37, 99, 235, 0.25));
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
       padding: 0.65rem 1rem;
       text-align: center;
-      font-size: 0.86rem;
-      font-weight: 600;
-      color: #cbd5e1;
+      font-size: 0.85rem;
+      color: #e2e8f0;
       display: flex;
       align-items: center;
       justify-content: center;
       gap: 0.5rem;
-    }
-    .top-bar span.pulse {
-      display: inline-block;
-      width: 9px;
-      height: 9px;
-      background-color: var(--c-emerald);
-      border-radius: 50%;
-      box-shadow: 0 0 10px var(--c-emerald);
-      animation: pulseAnim 1.8s infinite;
-    }
-    @keyframes pulseAnim {
-      0% { transform: scale(0.95); opacity: 0.8; }
-      50% { transform: scale(1.25); opacity: 1; }
-      100% { transform: scale(0.95); opacity: 0.8; }
+      position: relative;
+      z-index: 10;
     }
 
-    /* Header & Tag */
-    header {
-      padding: 3.5rem 0 2rem;
-      text-align: center;
+    .pulse {
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #10b981;
+      box-shadow: 0 0 10px #10b981;
+      animation: pulse-dot 1.8s infinite;
     }
+
+    @keyframes pulse-dot {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.4; transform: scale(0.85); }
+    }
+
+    /* Top Nav */
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.25rem 0;
+      border-bottom: 1px solid var(--bd);
+    }
+
+    .nav-brand {
+      font-size: 1.2rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      display: flex;
+      align-items: center;
+      gap: 0.45rem;
+      text-decoration: none;
+      color: var(--tx-main);
+    }
+
+    .nav-btn {
+      color: var(--tx-muted);
+      text-decoration: none;
+      font-size: 0.86rem;
+      font-weight: 600;
+      padding: 0.48rem 1.15rem;
+      border-radius: var(--radius-pill);
+      border: 1px solid var(--bd);
+      background: rgba(255, 255, 255, 0.04);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .nav-btn:hover {
+      color: #ffffff;
+      border-color: rgba(255, 255, 255, 0.25);
+      background: rgba(255, 255, 255, 0.08);
+      transform: translateY(-1px);
+    }
+
+    /* Hero Section */
+    header {
+      padding: 4.5rem 0 3rem;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
     .brand-pill {
       display: inline-flex;
       align-items: center;
       gap: 0.5rem;
-      padding: 0.4rem 1rem;
+      background: rgba(37, 99, 235, 0.12);
+      border: 1px solid rgba(37, 99, 235, 0.3);
+      padding: 0.4rem 1.1rem;
       border-radius: var(--radius-pill);
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid var(--bd-light);
-      font-size: 0.82rem;
-      font-weight: 700;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      color: var(--tx-main);
-      margin-bottom: 1.5rem;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-    }
-    .brand-pill .sparkle {
-      color: var(--c-amber);
+      font-size: 0.84rem;
+      font-weight: 600;
+      color: #93c5fd;
+      margin-bottom: 1.75rem;
+      box-shadow: 0 0 25px -5px var(--c-blue-glow);
     }
 
-    /* TSL Typography */
-    h1.hero-title {
-      font-size: clamp(2rem, 5.5vw, 3.2rem);
-      font-weight: 800;
-      line-height: 1.2;
-      letter-spacing: -0.025em;
-      margin-bottom: 1.5rem;
-      color: #ffffff;
+    .sparkle {
+      color: #60a5fa;
+      font-size: 1rem;
     }
-    h1.hero-title .highlight {
+
+    .hero-title {
+      font-size: clamp(2.1rem, 4.8vw, 3.5rem);
+      font-weight: 800;
+      line-height: 1.18;
+      letter-spacing: -0.03em;
+      max-width: 950px;
+      margin-bottom: 1.4rem;
+    }
+
+    .hero-title .highlight {
       background: linear-gradient(135deg, #60a5fa 0%, #a78bfa 50%, #34d399 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
+
     .hero-sub {
-      font-size: clamp(1.05rem, 2.5vw, 1.22rem);
+      font-size: clamp(1.05rem, 2vw, 1.25rem);
       color: var(--tx-muted);
-      max-width: 760px;
-      margin: 0 auto 2.5rem;
-      line-height: 1.65;
+      max-width: 800px;
+      margin-bottom: 2.8rem;
+      line-height: 1.6;
     }
 
-    /* Hero Mockup Image */
     .hero-mockup-wrapper {
-      margin: 1.5rem 0 2.5rem;
+      width: 100%;
+      max-width: 980px;
+      margin: 0 auto 3rem;
       position: relative;
+      border-radius: var(--radius-lg);
+      padding: 8px;
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0.02) 100%);
+      box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.7), var(--shadow-glow);
+      will-change: transform, opacity;
     }
+
     .hero-mockup-img {
       width: 100%;
-      border-radius: var(--radius-lg);
-      border: 1px solid var(--bd-light);
-      box-shadow: 0 20px 60px -10px rgba(0, 0, 0, 0.7), 0 0 40px -10px rgba(37, 99, 235, 0.3);
+      height: auto;
+      border-radius: calc(var(--radius-lg) - 6px);
       display: block;
-      transition: transform 0.3s ease;
-    }
-    .hero-mockup-img:hover {
-      transform: scale(1.01);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: #0f121d;
     }
 
-    /* Botão CTA Principal */
+    /* CTA Buttons with Tactile Spring Feel */
     .cta-wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
       margin: 2rem 0;
-      text-align: center;
+      width: 100%;
     }
+
     .btn-cta {
       display: inline-flex;
       align-items: center;
       justify-content: center;
       gap: 0.75rem;
-      width: 100%;
-      max-width: 540px;
-      padding: 1.25rem 2rem;
-      font-size: 1.18rem;
-      font-weight: 800;
-      letter-spacing: 0.02em;
-      text-transform: uppercase;
+      background: linear-gradient(135deg, #2563eb 0%, #4f46e5 100%);
       color: #ffffff;
-      background: linear-gradient(135deg, #059669 0%, #10b981 50%, #047857 100%);
-      border: 1px solid rgba(255, 255, 255, 0.25);
-      border-radius: var(--radius-md);
-      cursor: pointer;
+      padding: 1.25rem 2.4rem;
+      border-radius: var(--radius-pill);
+      font-size: 1.1rem;
+      font-weight: 700;
       text-decoration: none;
-      box-shadow: 0 10px 30px -5px rgba(16, 185, 129, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.3);
-      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 10px 35px -5px rgba(37, 99, 235, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.25);
+      transition: box-shadow 0.25s ease, filter 0.25s ease;
       position: relative;
       overflow: hidden;
+      will-change: transform;
     }
+
     .btn-cta:hover {
-      transform: translateY(-2px) scale(1.01);
-      box-shadow: 0 16px 40px -5px rgba(16, 185, 129, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.4);
-      background: linear-gradient(135deg, #047857 0%, #10b981 50%, #059669 100%);
+      box-shadow: 0 15px 45px -5px rgba(79, 70, 229, 0.65), inset 0 1px 0 rgba(255, 255, 255, 0.35);
+      filter: brightness(1.06);
     }
-    .btn-cta:active {
-      transform: translateY(1px) scale(0.99);
-    }
+
     .btn-cta .arrow {
       transition: transform 0.2s ease;
     }
+
     .btn-cta:hover .arrow {
       transform: translateX(4px);
     }
 
     .cta-subtext {
       display: flex;
-      align-items: center;
+      flex-wrap: wrap;
       justify-content: center;
       gap: 1.2rem;
-      margin-top: 0.85rem;
-      font-size: 0.82rem;
-      color: var(--tx-faint);
-      flex-wrap: wrap;
-    }
-    .cta-subtext span {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.35rem;
-    }
-
-    /* Cartas de Vendas (TSL Body Sections) */
-    .tsl-content {
-      padding: 1.5rem 0 3.5rem;
-    }
-    .tsl-narrative {
-      background: var(--bg-surface);
-      border: 1px solid var(--bd);
-      border-radius: var(--radius-lg);
-      padding: 2.2rem;
-      margin-bottom: 2.5rem;
-      box-shadow: var(--shadow-subtle);
-      font-size: 1.05rem;
-      line-height: 1.75;
-      color: #e2e8f0;
-    }
-    @media (max-width: 640px) {
-      .tsl-narrative { padding: 1.5rem 1.2rem; }
-    }
-    .tsl-narrative p {
-      margin-bottom: 1.35rem;
-    }
-    .tsl-narrative strong {
-      color: #ffffff;
-      font-weight: 700;
-    }
-    .callout-box {
-      border-left: 4px solid var(--c-amber);
-      background: rgba(245, 158, 11, 0.08);
-      padding: 1.2rem 1.4rem;
-      border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
-      margin: 1.8rem 0;
-      color: #fde68a;
-      font-size: 0.98rem;
-    }
-    .callout-box.green {
-      border-left-color: var(--c-emerald);
-      background: rgba(16, 185, 129, 0.08);
-      color: #a7f3d0;
-    }
-
-    /* Vitrine do que tem no Painel */
-    .section-title {
-      font-size: clamp(1.5rem, 3.8vw, 2.1rem);
-      font-weight: 800;
-      margin-bottom: 0.75rem;
-      text-align: center;
-      letter-spacing: -0.02em;
-    }
-    .section-subtitle {
-      text-align: center;
+      font-size: 0.85rem;
       color: var(--tx-muted);
-      margin-bottom: 2.5rem;
-      font-size: 1rem;
     }
 
-    /* Cards do Painel (Bento Grid) */
+    /* TSL Sales Narrative */
+    .tsl-content {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 1rem 0 4rem;
+    }
+
+    .tsl-narrative {
+      font-size: 1.12rem;
+      line-height: 1.75;
+      color: #cbd5e1;
+      margin-bottom: 3.5rem;
+    }
+
+    .tsl-narrative p {
+      margin-bottom: 1.5rem;
+    }
+
+    .tsl-narrative strong {
+      color: #f8fafc;
+    }
+
+    .callout-box {
+      background: rgba(37, 99, 235, 0.08);
+      border-left: 4px solid var(--c-blue);
+      border-radius: 0 var(--radius-md) var(--radius-md) 0;
+      padding: 1.4rem 1.6rem;
+      margin: 2rem 0;
+      color: #e2e8f0;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Section Headers */
+    .section-title {
+      font-size: clamp(1.8rem, 3.2vw, 2.5rem);
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      text-align: center;
+      margin-bottom: 0.75rem;
+      color: #ffffff;
+    }
+
+    .section-subtitle {
+      font-size: 1.05rem;
+      color: var(--tx-muted);
+      text-align: center;
+      max-width: 650px;
+      margin: 0 auto 3rem;
+    }
+
+    /* Bento Grid */
     .bento-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 1.2rem;
-      margin-bottom: 2.5rem;
+      gap: 1.25rem;
+      margin-bottom: 3rem;
     }
+
     .bento-card {
       background: var(--bg-card);
       border: 1px solid var(--bd);
-      border-radius: var(--radius-md);
-      padding: 1.5rem;
-      transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+      border-radius: var(--radius-lg);
+      padding: 1.75rem;
+      backdrop-filter: blur(12px);
+      transition: border-color 0.3s ease, box-shadow 0.3s ease;
+      display: flex;
+      flex-direction: column;
       position: relative;
+      will-change: transform, opacity;
     }
+
     .bento-card:hover {
-      transform: translateY(-3px);
-      border-color: var(--bd-light);
-      box-shadow: var(--shadow-float);
+      border-color: rgba(255, 255, 255, 0.22);
+      box-shadow: 0 12px 30px -10px rgba(0, 0, 0, 0.5);
     }
+
+    .bento-tag {
+      position: absolute;
+      top: 1.4rem;
+      right: 1.4rem;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--tx-faint);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
     .bento-icon {
       width: 44px;
       height: 44px;
@@ -360,200 +426,189 @@
       align-items: center;
       justify-content: center;
       font-size: 1.3rem;
-      margin-bottom: 1rem;
+      margin-bottom: 1.25rem;
     }
+
     .bento-card h3 {
-      font-size: 1.18rem;
+      font-size: 1.22rem;
       font-weight: 700;
-      margin-bottom: 0.5rem;
-      color: #ffffff;
+      margin-bottom: 0.65rem;
+      color: #f8fafc;
     }
+
     .bento-card p {
-      font-size: 0.92rem;
+      font-size: 0.94rem;
       color: var(--tx-muted);
       line-height: 1.55;
     }
-    .bento-tag {
-      position: absolute;
-      top: 1.2rem;
-      right: 1.2rem;
-      font-size: 0.72rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      padding: 0.25rem 0.6rem;
-      border-radius: var(--radius-pill);
-      background: rgba(255, 255, 255, 0.08);
-      color: var(--tx-muted);
-    }
 
-    /* Preview do Painel Mockup */
+    /* Panel Mockup Preview Box */
     .panel-mockup {
-      background: #0f1322;
+      background: rgba(15, 20, 36, 0.95);
       border: 1px solid var(--bd-light);
       border-radius: var(--radius-lg);
       padding: 1.5rem;
-      margin: 2.5rem 0;
-      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+      margin: 3rem 0;
+      box-shadow: var(--shadow-subtle);
+      will-change: transform, opacity;
     }
+
     .mockup-header {
       display: flex;
-      align-items: center;
       justify-content: space-between;
+      align-items: center;
       border-bottom: 1px solid var(--bd);
       padding-bottom: 1rem;
-      margin-bottom: 1.2rem;
+      margin-bottom: 1.5rem;
     }
+
     .mockup-dots {
       display: flex;
       gap: 6px;
     }
+
     .mockup-dot {
-      width: 11px;
-      height: 11px;
+      width: 10px;
+      height: 10px;
       border-radius: 50%;
-      background: rgba(255, 255, 255, 0.2);
     }
+
     .mockup-dot.red { background: #ef4444; }
     .mockup-dot.yellow { background: #f59e0b; }
     .mockup-dot.green { background: #10b981; }
 
     .mockup-title {
-      font-size: 0.82rem;
-      font-family: var(--font-mono);
-      color: var(--tx-faint);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.8rem;
+      color: var(--tx-muted);
+      letter-spacing: 0.05em;
     }
+
     .mockup-features {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 1rem;
-    }
-    .feature-item {
-      background: rgba(255, 255, 255, 0.03);
-      border: 1px solid var(--bd);
-      padding: 1rem;
-      border-radius: var(--radius-sm);
-    }
-    .feature-item strong {
-      display: block;
-      color: #38bdf8;
-      font-size: 0.95rem;
-      margin-bottom: 0.35rem;
-    }
-    .feature-item span {
-      font-size: 0.84rem;
-      color: var(--tx-muted);
-      line-height: 1.4;
-      display: block;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1.5rem;
     }
 
-        /* Pricing Grid (Mensal vs Vitalício) */
+    .feature-item {
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+    }
+
+    .feature-item strong {
+      font-size: 0.96rem;
+      color: #f8fafc;
+    }
+
+    .feature-item span {
+      font-size: 0.86rem;
+      color: var(--tx-muted);
+      line-height: 1.45;
+    }
+
+    /* Pricing Section */
     .pricing-grid {
       display: grid;
-      grid-template-columns: 1fr 1.08fr;
-      gap: 1.6rem;
-      align-items: stretch;
-      margin: 2rem 0 2.5rem;
-    }
-    @media (max-width: 820px) {
-      .pricing-grid {
-        grid-template-columns: 1fr;
-      }
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 2rem;
+      margin-bottom: 3.5rem;
     }
 
-    /* Box de Oferta e Preço */
     .offer-card {
-      background: linear-gradient(180deg, rgba(26, 32, 60, 0.9) 0%, rgba(15, 20, 38, 0.95) 100%);
-      border: 2px solid rgba(16, 185, 129, 0.4);
+      background: var(--bg-surface);
+      border: 1px solid var(--bd);
       border-radius: var(--radius-xl);
-      padding: 2.8rem 2rem;
-      margin: 3.5rem 0 2rem;
-      text-align: center;
+      padding: 2.5rem 2rem;
       position: relative;
-      box-shadow: 0 0 50px -10px rgba(16, 185, 129, 0.25);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      backdrop-filter: blur(16px);
+      will-change: transform, opacity;
+      transition: border-color 0.3s ease, box-shadow 0.3s ease;
     }
+
+    .offer-card.featured {
+      border-color: var(--c-purple);
+      box-shadow: 0 0 55px -8px var(--c-purple-glow);
+      background: linear-gradient(180deg, rgba(35, 25, 75, 0.95) 0%, rgba(15, 20, 40, 0.98) 100%);
+    }
+
     .offer-badge {
-      position: absolute;
-      top: -15px;
-      left: 50%;
-      transform: translateX(-50%);
-      background: linear-gradient(135deg, #10b981, #059669);
-      color: #ffffff;
-      font-size: 0.8rem;
-      font-weight: 800;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      padding: 0.4rem 1.4rem;
+      display: inline-block;
+      padding: 0.35rem 0.9rem;
       border-radius: var(--radius-pill);
-      box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4);
+      font-size: 0.78rem;
+      font-weight: 700;
+      margin-bottom: 1.25rem;
+      letter-spacing: 0.03em;
     }
+
     .price-strike {
-      font-size: 1.1rem;
+      font-size: 0.95rem;
       color: var(--tx-faint);
       text-decoration: line-through;
       margin-bottom: 0.2rem;
     }
+
     .price-main {
-      font-size: clamp(2.5rem, 6vw, 3.8rem);
+      font-size: 2.75rem;
       font-weight: 800;
       color: #ffffff;
-      line-height: 1.1;
+      line-height: 1;
       margin-bottom: 0.4rem;
     }
+
     .price-main span {
-      font-size: 1.3rem;
-      color: #10b981;
+      font-size: 1.5rem;
       font-weight: 600;
     }
+
     .price-terms {
-      font-size: 0.9rem;
+      font-size: 0.86rem;
       color: var(--tx-muted);
-      margin-bottom: 1.8rem;
-    }
-    .checklist {
-      list-style: none;
-      max-width: 500px;
-      margin: 0 auto 2.2rem;
-      text-align: left;
-      display: flex;
-      flex-direction: column;
-      gap: 0.8rem;
-      font-size: 0.98rem;
-    }
-    .checklist li {
-      display: flex;
-      align-items: center;
-      gap: 0.65rem;
-      color: #cbd5e1;
-    }
-    .checklist li svg {
-      color: #10b981;
-      flex-shrink: 0;
     }
 
-    /* Garantia */
+    .checklist {
+      list-style: none;
+      margin: 1.8rem 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0.85rem;
+    }
+
+    .checklist li {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.65rem;
+      font-size: 0.94rem;
+      color: #cbd5e1;
+      line-height: 1.4;
+    }
+
+    .checklist svg {
+      color: var(--c-emerald);
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    /* Guarantee Box */
     .guarantee-box {
+      background: rgba(16, 185, 129, 0.06);
+      border: 1px solid rgba(16, 185, 129, 0.25);
+      border-radius: var(--radius-lg);
+      padding: 2rem;
       display: flex;
       align-items: center;
       gap: 1.5rem;
-      background: rgba(255, 255, 255, 0.03);
-      border: 1px solid var(--bd);
-      border-radius: var(--radius-lg);
-      padding: 1.6rem 2rem;
-      margin: 2rem 0;
+      margin: 3.5rem 0;
+      will-change: transform, opacity;
     }
-    @media (max-width: 600px) {
-      .guarantee-box { flex-direction: column; text-align: center; }
-    }
+
     .guarantee-badge {
-      width: 68px;
-      height: 68px;
-      border-radius: 50%;
-      background: rgba(16, 185, 129, 0.15);
-      border: 2px solid var(--c-emerald);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.8rem;
+      font-size: 2.75rem;
+      line-height: 1;
       flex-shrink: 0;
     }
 
@@ -562,42 +617,61 @@
       background: var(--bg-surface);
       border: 1px solid var(--bd);
       border-radius: var(--radius-md);
-      margin-bottom: 0.85rem;
+      margin-bottom: 1rem;
       overflow: hidden;
-      transition: border-color 0.2s ease;
+      will-change: transform, opacity;
+      transition: border-color 0.25s ease;
     }
+
+    .faq-item:hover {
+      border-color: rgba(255, 255, 255, 0.2);
+    }
+
     .faq-question {
-      padding: 1.2rem 1.4rem;
-      font-weight: 700;
-      font-size: 1.05rem;
+      padding: 1.25rem 1.5rem;
       cursor: pointer;
       display: flex;
       justify-content: space-between;
       align-items: center;
+      font-weight: 700;
+      font-size: 1.05rem;
+      color: #f8fafc;
       user-select: none;
     }
-    .faq-question:hover {
-      color: #38bdf8;
-    }
-    .faq-answer {
-      padding: 0 1.4rem 1.2rem;
+
+    .faq-chevron {
+      font-size: 1.2rem;
       color: var(--tx-muted);
-      font-size: 0.95rem;
+      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .faq-item.active .faq-chevron {
+      transform: rotate(180deg);
+      color: var(--c-blue);
+    }
+
+    .faq-answer {
+      padding: 0 1.5rem 1.25rem;
+      color: var(--tx-muted);
+      font-size: 0.96rem;
       line-height: 1.6;
       display: none;
     }
+
     .faq-item.active .faq-answer {
       display: block;
     }
-    .faq-item.active .faq-chevron {
-      transform: rotate(180deg);
-    }
-    .faq-chevron {
-      transition: transform 0.2s ease;
-      color: var(--tx-faint);
+
+    /* Footer */
+    footer {
+      border-top: 1px solid var(--bd);
+      padding: 3rem 0;
+      text-align: center;
+      font-size: 0.88rem;
+      color: var(--tx-muted);
     }
 
-    /* Modal de Tratamento de Erro e Configuração do Gateway */
+    /* Modal Overlay */
     .modal-overlay {
       position: fixed;
       top: 0;
@@ -606,46 +680,51 @@
       height: 100vh;
       background: rgba(0, 0, 0, 0.75);
       backdrop-filter: blur(8px);
-      z-index: 9999;
       display: none;
       align-items: center;
       justify-content: center;
+      z-index: 10000;
       padding: 1rem;
     }
+
     .modal-card {
-      background: #11162b;
+      background: var(--bg-surface-elevated);
       border: 1px solid var(--bd-light);
       border-radius: var(--radius-lg);
-      max-width: 520px;
-      width: 100%;
       padding: 2rem;
-      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8);
+      max-width: 480px;
+      width: 100%;
       position: relative;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.6);
     }
+
     .modal-close {
       position: absolute;
-      top: 1rem;
-      right: 1rem;
+      top: 1.2rem;
+      right: 1.2rem;
       background: transparent;
       border: none;
-      color: var(--tx-faint);
-      font-size: 1.4rem;
+      color: var(--tx-muted);
+      font-size: 1.5rem;
       cursor: pointer;
     }
-    .modal-close:hover { color: #ffffff; }
 
-    footer {
-      border-top: 1px solid var(--bd);
-      padding: 3rem 0;
-      text-align: center;
-      color: var(--tx-faint);
-      font-size: 0.85rem;
+    /* Responsive */
+    @media (max-width: 768px) {
+      header { padding: 3rem 0 2rem; }
+      .hero-title { font-size: 2rem; }
+      .bento-grid { grid-template-columns: 1fr; }
+      .pricing-grid { grid-template-columns: 1fr; }
+      .guarantee-box { flex-direction: column; text-align: center; }
     }
   </style>
 </head>
-<body>
 
-  <!-- Ambient Lights -->
+<body>
+  <!-- Motion Hardware-Accelerated Scroll Progress Bar -->
+  <div id="scroll-progress"></div>
+
+  <!-- Ambient Glow Effects -->
   <div class="ambient-bg">
     <div class="ambient-glow-1"></div>
     <div class="ambient-glow-2"></div>
@@ -661,17 +740,18 @@
   <div class="container">
 
     <!-- Barra de Navegação Superior -->
-    <nav style="display:flex; justify-content:space-between; align-items:center; padding:1.2rem 0; border-bottom:1px solid var(--bd);">
-      <div style="font-size:1.15rem; font-weight:800; letter-spacing:-0.02em; display:flex; align-items:center; gap:0.45rem">
-        <span style="color:var(--c-blue); font-size:1.25rem">⚖️</span> <span>JurisPass</span>
-      </div>
-      <a href="./index.html" style="color:var(--tx-muted); text-decoration:none; font-size:0.86rem; font-weight:600; padding:0.45rem 1.1rem; border-radius:var(--radius-pill); border:1px solid var(--bd); background:rgba(255,255,255,0.04); display:inline-flex; align-items:center; gap:0.4rem; transition:all 0.2s ease;">
-        <span>Já é aluno? Entrar no Painel</span> ➔
+    <nav>
+      <a href="./landing.html" class="nav-brand">
+        <span style="color:var(--c-blue); font-size:1.35rem">⚖️</span> 
+        <span>JurisPass</span>
+      </a>
+      <a href="./index.html" class="nav-btn">
+        <span>Já é aluno? Entrar no Painel</span> →
       </a>
     </nav>
 
     <!-- Header / TSL Hero -->
-    <header>
+    <header class="hero-section">
       <div class="brand-pill">
         <span class="sparkle">✦</span>
         <span>Método JurisPass • Processo Penal Ativo</span>
@@ -692,9 +772,9 @@
 
       <!-- Botão CTA #1 -->
       <div class="cta-wrapper">
-        <button class="btn-cta" onclick="iniciarCheckout('hero_cta')">
+        <button class="btn-cta" onclick="iniciarCheckout('vitalicio', 'hero_cta')">
           <span>QUERO MEU ACESSO IMEDIATO AO PAINEL</span>
-          <span class="arrow">➔</span>
+          <span class="arrow">→</span>
         </button>
 
         <div class="cta-subtext">
@@ -748,7 +828,7 @@
           <!-- Card 2 -->
           <div class="bento-card">
             <span class="bento-tag">Módulo 02</span>
-            <div class="bento-icon" style="background: var(--c-purple-glow); color: var(--c-purple);">🚫</div>
+            <div class="bento-icon" style="background: var(--c-purple-glow); color: var(--c-purple);">⚡</div>
             <h3>Nulidades Penais (Art. 564 CPP)</h3>
             <p>O princípio do prejuízo (<em>pas de nullité sans grief</em>), distinção cirúrgica entre Nulidade Absoluta x Relativa, momentos de arguição (Art. 571) e súmulas dos Tribunais Superiores.</p>
           </div>
@@ -756,7 +836,7 @@
           <!-- Card 3 -->
           <div class="bento-card">
             <span class="bento-tag">Módulo 03</span>
-            <div class="bento-icon" style="background: var(--c-blue-glow); color: var(--c-blue);">📜</div>
+            <div class="bento-icon" style="background: var(--c-blue-glow); color: var(--c-blue);">📖</div>
             <h3>Teoria Geral dos Recursos</h3>
             <p>Pressupostos objetivos e subjetivos, Efeitos Devolutivo, Suspensivo e Regressivo, Princípio da Unirrecorribilidade, Fungibilidade e Vedação da <em>Reformatio in Pejus</em>.</p>
           </div>
@@ -772,7 +852,7 @@
           <!-- Card 5 -->
           <div class="bento-card">
             <span class="bento-tag">Módulo 05</span>
-            <div class="bento-icon" style="background: var(--c-amber-glow); color: var(--c-amber);">📂</div>
+            <div class="bento-icon" style="background: var(--c-amber-glow); color: var(--c-amber);">🏛️</div>
             <h3>Apelação Criminal (Art. 593)</h3>
             <p>Sentenças de mérito, decisões definitivas residuais, e as 4 alíneas da Apelação contra veredito dos jurados no Tribunal do Júri (a, b, c, d).</p>
           </div>
@@ -780,7 +860,7 @@
           <!-- Card 6 -->
           <div class="bento-card">
             <span class="bento-tag">Interativo</span>
-            <div class="bento-icon" style="background: rgba(14, 165, 233, 0.2); color: #38bdf8;">🧠</div>
+            <div class="bento-icon" style="background: rgba(14, 165, 233, 0.2); color: #38bdf8;">🔄</div>
             <h3>Flashcards 3D (Flip Motion)</h3>
             <p>Sistema dinâmico de cartas com efeito flip para memorização de prazos, súmulas e palavras-chave que os examinadores mais cobram em provas.</p>
           </div>
@@ -808,11 +888,11 @@
               <span>Questões práticas com gabaritos detalhados, justificativa de cada assertiva e registro automático do seu rendimento.</span>
             </div>
             <div class="feature-item">
-              <strong>Vade Mecum Digital Integrado</strong>
-              <span>Consulte a letra fria da lei, artigos do CPP e jurisprudência vinculante com busca instantânea sem sair da sua aula.</span>
+              <strong>Mural de Mnemônicos & Súmulas</strong>
+              <span>Atalhos mentais validados para não confundir prazos, ritos e hipóteses de cabimento no dia da sua prova.</span>
             </div>
             <div class="feature-item">
-              <strong>Dark & Light Mode Nativo</strong>
+              <strong>Interface Apple/Linear Ultra Rápida</strong>
               <span>Desenvolvido sob o design language Apple/Linear para oferecer leitura confortável dia e noite em qualquer dispositivo.</span>
             </div>
           </div>
@@ -822,10 +902,10 @@
       <!-- Comparativo / Para Quem É -->
       <section class="tsl-narrative" style="margin-top: 3rem;">
         <h3 style="font-size:1.4rem; margin-bottom:1rem; color:#ffffff;">Para quem o JurisPass foi feito sob medida:</h3>
-        <p>✅ <strong>Candidatos da 1ª e 2ª Fase da OAB</strong> que precisam ter certeza absoluta do recurso cabível e não podem perder pontos na peça prática ou nas questões discursivas.</p>
-        <p>✅ <strong>Concurseiros das Carreiras Policiais (Delegado, Agente, Escrivão)</strong> e Tribunais que necessitam fixar detalhes técnicos do CPP sem decorebas inúteis.</p>
-        <p>✅ <strong>Estudantes da Graduação em Direito</strong> que querem gabaritar as provas de Processo Penal e se destacar nos estágios jurídicos.</p>
-        <p>✅ <strong>Advogados em início de carreira</strong> que buscam um guia prático e veloz de consulta na rotina forense.</p>
+        <p>🎯 <strong>Candidatos da 1ª e 2ª Fase da OAB</strong> que precisam ter certeza absoluta do recurso cabível e não podem perder pontos na peça prática ou nas questões discursivas.</p>
+        <p>🚔 <strong>Concurseiros das Carreiras Policiais (Delegado, Agente, Escrivão)</strong> e Tribunais que necessitam fixar detalhes técnicos do CPP sem decorebas inúteis.</p>
+        <p>📚 <strong>Estudantes da Graduação em Direito</strong> que querem gabaritar as provas de Processo Penal e se destacar nos estágios jurídicos.</p>
+        <p>⚖️ <strong>Advogados em início de carreira</strong> que buscam um guia prático e veloz de consulta na rotina forense.</p>
       </section>
 
       <!-- Oferta / Preço (Mensal vs Vitalício) -->
@@ -841,9 +921,9 @@
 
         <div class="pricing-grid">
           <!-- PLANO 1: MENSAL (R$ 19,90/mês) -->
-          <div class="offer-card" style="margin:0; display:flex; flex-direction:column; justify-content:space-between; border-color: rgba(37, 99, 235, 0.4); box-shadow: 0 0 35px -10px var(--c-blue-glow);">
+          <div class="offer-card" style="border-color: rgba(37, 99, 235, 0.4); box-shadow: 0 0 35px -10px var(--c-blue-glow);">
             <div>
-              <div class="offer-badge" style="background: linear-gradient(135deg, #2563eb, #1d4ed8);">Assinatura Flexível</div>
+              <div class="offer-badge" style="background: linear-gradient(135deg, #2563eb, #1d4ed8); color: #fff;">Assinatura Flexível</div>
 
               <h3 style="font-size: 1.6rem; margin-bottom: 0.35rem; color: #ffffff;">Plano Mensal</h3>
               <p style="color: var(--tx-muted); font-size:0.9rem; margin-bottom: 1.25rem;">Ideal para quem busca flexibilidade e quer cancelar a qualquer momento sem compromisso.</p>
@@ -874,7 +954,7 @@
                   Acesso pelo celular, tablet ou computador
                 </li>
                 <li style="color:var(--tx-faint)">
-                  <span style="display:inline-block; width:18px; text-align:center">↺</span>
+                  <span style="display:inline-block; width:18px; text-align:center">•</span>
                   Renovação mensal (cancele quando quiser)
                 </li>
               </ul>
@@ -883,22 +963,22 @@
             <div class="cta-wrapper" style="margin: 0;">
               <button class="btn-cta" style="background: linear-gradient(135deg, #1d4ed8, #2563eb); font-size: 1.02rem; padding: 1.1rem 1.4rem;" onclick="iniciarCheckout('mensal', 'pricing_mensal')">
                 <span>ASSINAR PLANO MENSAL (R$ 19,90)</span>
-                <span class="arrow">➔</span>
+                <span class="arrow">→</span>
               </button>
             </div>
           </div>
 
           <!-- PLANO 2: VITALÍCIO (R$ 47,90 - DESTAQUE MÁXIMO) -->
-          <div class="offer-card" style="margin:0; display:flex; flex-direction:column; justify-content:space-between; border-color: var(--c-purple); box-shadow: 0 0 55px -8px var(--c-purple-glow); background: linear-gradient(180deg, rgba(35, 25, 75, 0.95) 0%, rgba(15, 20, 40, 0.98) 100%);">
+          <div class="offer-card featured">
             <div>
-              <div class="offer-badge" style="background: linear-gradient(135deg, #f59e0b, #d97706); color: #000; font-weight: 800; box-shadow: 0 4px 20px rgba(245, 158, 11, 0.5);">👑 O MAIS ESCOLHIDO • ACESSO VITALÍCIO</div>
+              <div class="offer-badge" style="background: linear-gradient(135deg, #f59e0b, #d97706); color: #000; font-weight: 800; box-shadow: 0 4px 20px rgba(245, 158, 11, 0.5);">🔥 O MAIS ESCOLHIDO • ACESSO VITALÍCIO</div>
 
               <h3 style="font-size: 1.75rem; margin-bottom: 0.35rem; color: #ffffff;">Plano Vitalício</h3>
               <p style="color: #cbd5e1; font-size:0.92rem; margin-bottom: 1.25rem;"><strong>Pague uma única vez</strong> e tenha acesso para sempre ao painel, sem nunca mais pagar mensalidades.</p>
 
               <div class="price-strike">De R$ 197,00</div>
               <div class="price-main" style="color: #38bdf8;"><span>R$</span> 47,90 <span style="font-size:0.95rem; color:#a7f3d0">/ pagamento único</span></div>
-              <div class="price-terms" style="color:#a7f3d0; font-weight:700; font-size:0.86rem; margin-bottom:1.5rem">⚡ Acesso Para Sempre • Sem cobranças futuras!</div>
+              <div class="price-terms" style="color:#a7f3d0; font-weight:700; font-size:0.86rem; margin-bottom:1.5rem">✓ Acesso Para Sempre • Sem cobranças futuras!</div>
 
               <ul class="checklist" style="margin-bottom:1.8rem; font-size:0.92rem">
                 <li style="color:#ffffff; font-weight:700">
@@ -943,7 +1023,7 @@
             <div class="cta-wrapper" style="margin: 0;">
               <button class="btn-cta" style="background: linear-gradient(135deg, #059669 0%, #10b981 50%, #047857 100%); font-size: 1.08rem; padding: 1.25rem 1.4rem;" onclick="iniciarCheckout('vitalicio', 'pricing_vitalicio')">
                 <span>QUERO ACESSO VITALÍCIO (R$ 47,90)</span>
-                <span class="arrow">➔</span>
+                <span class="arrow">→</span>
               </button>
             </div>
           </div>
@@ -967,7 +1047,7 @@
         <p class="section-subtitle">Tire suas dúvidas antes de garantir seu acesso.</p>
 
         <div class="faq-item active">
-          <div class="faq-question" onclick="toggleFaq(this)">
+          <div class="faq-question">
             <span>Como recebo o acesso ao meu painel após a compra?</span>
             <span class="faq-chevron">▼</span>
           </div>
@@ -977,7 +1057,7 @@
         </div>
 
         <div class="faq-item">
-          <div class="faq-question" onclick="toggleFaq(this)">
+          <div class="faq-question">
             <span>Posso acessar pelo celular ou apenas pelo computador?</span>
             <span class="faq-chevron">▼</span>
           </div>
@@ -987,7 +1067,7 @@
         </div>
 
         <div class="faq-item">
-          <div class="faq-question" onclick="toggleFaq(this)">
+          <div class="faq-question">
             <span>O pagamento na BravoPay é seguro?</span>
             <span class="faq-chevron">▼</span>
           </div>
@@ -997,12 +1077,12 @@
         </div>
 
         <div class="faq-item">
-          <div class="faq-question" onclick="toggleFaq(this)">
+          <div class="faq-question">
             <span>Preciso pagar mensalidade?</span>
             <span class="faq-chevron">▼</span>
           </div>
           <div class="faq-answer">
-            Nesta oferta promocional de lançamento, você garante acesso sem taxas escondidas ou surpresas na sua fatura.
+            Nesta oferta promocional de lançamento, você pode optar pelo Plano Vitalício (pagamento único de R$ 47,90 para sempre) ou pelo Plano Mensal (R$ 19,90/mês). Sem taxas escondidas ou surpresas na sua fatura.
           </div>
         </div>
       </section>
@@ -1013,9 +1093,9 @@
         <p style="color: var(--tx-muted); margin-bottom: 2rem;">Clique no botão abaixo e aproveite o valor promocional antes do encerramento do lote.</p>
         
         <div class="cta-wrapper">
-          <button class="btn-cta" onclick="iniciarCheckout('footer_cta')">
+          <button class="btn-cta" onclick="iniciarCheckout('vitalicio', 'footer_cta')">
             <span>GARANTIR MINHA VAGA AGORA</span>
-            <span class="arrow">➔</span>
+            <span class="arrow">→</span>
           </button>
         </div>
       </section>
@@ -1036,7 +1116,7 @@
       <button class="modal-close" onclick="fecharModal()">&times;</button>
       
       <div style="display:flex; align-items:center; gap:0.75rem; margin-bottom:1rem">
-        <div style="font-size:1.8rem">⚡</div>
+        <div style="font-size:1.8rem">🔒</div>
         <div>
           <h3 style="font-size:1.25rem; font-weight:700" id="modal-title">Conectando ao Gateway BravoPay...</h3>
           <p style="font-size:0.84rem; color:var(--tx-muted)" id="modal-desc">Redirecionando com segurança para o checkout.</p>
@@ -1049,7 +1129,7 @@
 
       <div style="display:flex; flex-direction:column; gap:0.75rem">
         <a id="btn-manual-bravopay" href="#" target="_blank" class="btn-cta" style="width:100%; font-size:1rem; padding:0.9rem">
-          Ir Para o Checkout Manualmente ➔
+          Ir Para o Checkout Manualmente →
         </a>
         <button onclick="fecharModal()" style="background:transparent; border:1px solid var(--bd); color:var(--tx-muted); padding:0.75rem; border-radius:var(--radius-sm); cursor:pointer">
           Fechar Janela
@@ -1059,36 +1139,167 @@
   </div>
 
   <!-- ==========================================================================
-       SCRIPT DE INTEGRAÇÃO BRAVOPAY & TRATAMENTO DE ERROS
+       SCRIPT DE ANIMAÇÕES MOTION (MOTION.DEV) & GATEWAY BRAVOPAY
+       ========================================================================== -->
+  <script type="module">
+    import { animate, scroll, inView, timeline, stagger } from "https://cdn.jsdelivr.net/npm/motion@latest/+esm";
+
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    // 1. Hardware-Accelerated Scroll Progress Bar
+    try {
+      scroll(
+        animate("#scroll-progress", { scaleX: [0, 1] }, { ease: "linear" }),
+        { target: document.documentElement }
+      );
+    } catch (e) {
+      console.warn("Motion scroll timeline fallback", e);
+    }
+
+    if (!prefersReducedMotion) {
+      // 2. Hero Section Entrance Timeline (Spring Physics)
+      try {
+        timeline([
+          [".brand-pill", { opacity: [0, 1], y: [16, 0] }, { duration: 0.45, ease: "easeOut" }],
+          [".hero-title", { opacity: [0, 1], y: [22, 0] }, { duration: 0.55, at: "-0.25", ease: "easeOut" }],
+          [".hero-sub", { opacity: [0, 1], y: [18, 0] }, { duration: 0.5, at: "-0.3", ease: "easeOut" }],
+          [".hero-mockup-wrapper", { opacity: [0, 1], scale: [0.94, 1], y: [30, 0] }, { 
+            type: "spring", visualDuration: 0.55, bounce: 0.18, at: "-0.3" 
+          }],
+          [".hero-section .cta-wrapper", { opacity: [0, 1], y: [16, 0] }, { duration: 0.45, at: "-0.3", ease: "easeOut" }]
+        ]);
+      } catch (e) {
+        console.warn("Motion hero timeline error", e);
+      }
+
+      // 3. Scroll Reveals with inView
+      try {
+        // Bento Grid Staggered Entrance
+        inView(".bento-grid", (grid) => {
+          const cards = grid.querySelectorAll(".bento-card");
+          animate(cards, { opacity: [0, 1], y: [28, 0], scale: [0.96, 1] }, {
+            delay: stagger(0.08),
+            type: "spring",
+            visualDuration: 0.45,
+            bounce: 0.15
+          });
+        }, { margin: "-40px 0px" });
+
+        // Narrative Section Glide
+        inView(".tsl-narrative", (el) => {
+          const paras = el.querySelectorAll("p, .callout-box");
+          animate(paras, { opacity: [0, 1], y: [18, 0] }, {
+            delay: stagger(0.06),
+            duration: 0.5,
+            ease: "easeOut"
+          });
+        }, { margin: "-60px 0px" });
+
+        // Panel Mockup Features
+        inView(".panel-mockup", (el) => {
+          animate(el, { opacity: [0, 1], y: [25, 0] }, { duration: 0.5, ease: "easeOut" });
+          animate(el.querySelectorAll(".feature-item"), { opacity: [0, 1], x: [-14, 0] }, {
+            delay: stagger(0.07),
+            duration: 0.4,
+            ease: "easeOut"
+          });
+        }, { margin: "-50px 0px" });
+
+        // Pricing Cards Depth Entrance
+        inView(".pricing-grid", (grid) => {
+          const cards = grid.querySelectorAll(".offer-card");
+          animate(cards, { opacity: [0, 1], y: [35, 0], scale: [0.94, 1] }, {
+            delay: stagger(0.12),
+            type: "spring",
+            visualDuration: 0.55,
+            bounce: 0.2
+          });
+        }, { margin: "-60px 0px" });
+
+        // Guarantee Box Entrance
+        inView(".guarantee-box", (box) => {
+          animate(box, { opacity: [0, 1], scale: [0.95, 1], y: [15, 0] }, {
+            type: "spring",
+            visualDuration: 0.45,
+            bounce: 0.15
+          });
+        }, { margin: "-40px 0px" });
+
+        // FAQ Items Reveal
+        inView(".faq-item", (item) => {
+          animate(item, { opacity: [0, 1], y: [16, 0] }, { duration: 0.45, ease: "easeOut" });
+        }, { margin: "-30px 0px" });
+
+      } catch (e) {
+        console.warn("Motion inView error", e);
+      }
+
+      // 4. Spring Physics Microinteractions (Buttons & Cards)
+      document.querySelectorAll(".btn-cta").forEach((btn) => {
+        btn.addEventListener("mouseenter", () => {
+          animate(btn, { scale: 1.03 }, { type: "spring", visualDuration: 0.25, bounce: 0.3 });
+        });
+        btn.addEventListener("mouseleave", () => {
+          animate(btn, { scale: 1 }, { type: "spring", visualDuration: 0.25, bounce: 0.2 });
+        });
+        btn.addEventListener("mousedown", () => {
+          animate(btn, { scale: 0.97 }, { duration: 0.1, ease: "easeOut" });
+        });
+        btn.addEventListener("mouseup", () => {
+          animate(btn, { scale: 1.03 }, { type: "spring", visualDuration: 0.25, bounce: 0.4 });
+        });
+      });
+
+      document.querySelectorAll(".bento-card").forEach((card) => {
+        card.addEventListener("mouseenter", () => {
+          animate(card, { y: -4, scale: 1.01 }, { type: "spring", visualDuration: 0.3, bounce: 0.25 });
+        });
+        card.addEventListener("mouseleave", () => {
+          animate(card, { y: 0, scale: 1 }, { type: "spring", visualDuration: 0.3, bounce: 0.2 });
+        });
+      });
+
+      document.querySelectorAll(".offer-card").forEach((card) => {
+        card.addEventListener("mouseenter", () => {
+          animate(card, { y: -6 }, { type: "spring", visualDuration: 0.35, bounce: 0.25 });
+        });
+        card.addEventListener("mouseleave", () => {
+          animate(card, { y: 0 }, { type: "spring", visualDuration: 0.35, bounce: 0.2 });
+        });
+      });
+    }
+
+    // 5. Interactive FAQ Accordion
+    document.querySelectorAll(".faq-question").forEach((q) => {
+      q.addEventListener("click", () => {
+        const item = q.closest(".faq-item");
+        const isOpen = item.classList.contains("active");
+        
+        // Fechar todos
+        document.querySelectorAll(".faq-item").forEach((fi) => {
+          if (fi !== item) fi.classList.remove("active");
+        });
+
+        // Alternar atual
+        item.classList.toggle("active", !isOpen);
+      });
+    });
+  </script>
+
+  <!-- ==========================================================================
+       CONFIGURAÇÃO CENTRAL DO GATEWAY BRAVOPAY
        ========================================================================== -->
   <script>
-    /* 
-      ==========================================================================
-      CONFIGURAÇÃO CENTRAL DO GATEWAY BRAVOPAY
-      Cole aqui o link do seu checkout ou oferta gerado na sua conta BravoPay!
-      ==========================================================================
-    */
     const BRAVOPAY_CONFIG = {
-      // 1. Link da Oferta Mensal (R$ 19,90/mês na BravoPay)
       checkoutMensal: "https://pagseguropix.org/c/acesso-ao-painel-de-direito", 
-
-      // 2. Link da Oferta Vitalícia (R$ 47,90 pagamento único para sempre)
-      // Se você criar uma oferta específica para o vitalício na BravoPay, cole o link aqui!
-      // Por padrão ele já direciona para o seu checkout passando o identificador vitalício:
       checkoutVitalicio: "https://pagseguropix.org/c/acesso-ao-painel-de-direito-copy", 
-
       produtoId: "jurispass",
       urlPainelAcesso: "./index.html"
     };
 
-    /**
-     * Função Central de Redirecionamento BravoPay
-     * @param {'mensal'|'vitalicio'} plano
-     * @param {string} origemBotao
-     */
     function iniciarCheckout(plano = 'vitalicio', origemBotao = 'cta_principal') {
       try {
-        console.log([JurisPass BravoPay] Redirecionando para plano [] via: );
+        console.log(`[JurisPass BravoPay] Redirecionando para plano [${plano}] via ${origemBotao}`);
 
         const urlParams = new URLSearchParams(window.location.search);
         const checkoutParams = new URLSearchParams();
@@ -1102,10 +1313,9 @@
         if (!checkoutParams.has('utm_source')) {
           checkoutParams.set('utm_source', 'landing_tsl');
         }
-        checkoutParams.set('utm_content', ${plano}_);
+        checkoutParams.set('utm_content', `${plano}_${origemBotao}`);
         checkoutParams.set('plano', plano === 'vitalicio' ? 'Master' : 'Pro');
 
-        // Selecionar o link do checkout conforme o plano escolhido
         let destinoFinal = (plano === 'vitalicio' ? BRAVOPAY_CONFIG.checkoutVitalicio : BRAVOPAY_CONFIG.checkoutMensal).trim();
         
         const isPlaceholder = !destinoFinal || destinoFinal.includes("XXXX");
@@ -1115,62 +1325,15 @@
         }
 
         const separador = destinoFinal.includes('?') ? '&' : '?';
-        const urlCompleta = checkoutParams.toString() ? ${destinoFinal} : destinoFinal;
-
-        window.location.href = urlCompleta;
-      } catch (err) {
-        console.error("[JurisPass BravoPay] Erro ao redirecionar:", err);
-        mostrarErroCheckout(err);
-      }
-    }`);
-
-        // Capturar UTMs existentes na URL para preservar o rastreamento do tráfego
-        const urlParams = new URLSearchParams(window.location.search);
-        
-        // Criar ou atualizar os parâmetros de conversão
-        const checkoutParams = new URLSearchParams();
-        
-        // Preservar UTMs originais
-        ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content', 'src', 'sck'].forEach(param => {
-          if (urlParams.has(param)) {
-            checkoutParams.set(param, urlParams.get(param));
-          }
-        });
-
-        // Adicionar origem do botão clicado
-        if (!checkoutParams.has('utm_source')) {
-          checkoutParams.set('utm_source', 'landing_tsl');
-        }
-        checkoutParams.set('utm_content', origemBotao);
-
-        // Validar link da BravoPay
-        let destinoFinal = BRAVOPAY_CONFIG.checkoutUrl.trim();
-        
-        // Se o link ainda não foi configurado com a URL específica da sua oferta
-        const isPlaceholder = !destinoFinal || destinoFinal.includes("XXXX");
-
-        if (isPlaceholder) {
-          // Exibir modal informativo de conexão rápida para o usuário configurar o link final
-          mostrarAvisoConfiguracaoBravoPay(origemBotao);
-          return;
-        }
-
-        // Montar URL final com os parâmetros
-        const separador = destinoFinal.includes('?') ? '&' : '?';
         const urlCompleta = checkoutParams.toString() ? `${destinoFinal}${separador}${checkoutParams.toString()}` : destinoFinal;
 
-        // Redirecionamento seguro
         window.location.href = urlCompleta;
-
       } catch (err) {
         console.error("[JurisPass BravoPay] Erro ao redirecionar:", err);
         mostrarErroCheckout(err);
       }
     }
 
-    /**
-     * Modal amigável de diagnóstico quando o link ainda precisa ser preenchido
-     */
     function mostrarAvisoConfiguracaoBravoPay(origem) {
       const modal = document.getElementById('checkout-modal');
       const title = document.getElementById('modal-title');
@@ -1178,62 +1341,32 @@
       const body = document.getElementById('modal-body');
       const btnManual = document.getElementById('btn-manual-bravopay');
 
-      title.innerHTML = 'Integração BravoPay Conectada!';
-      desc.innerHTML = 'A Landing Page TSL está 100% pronta para receber seu link.';
-      
-      body.innerHTML = `
-        <div style="background: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.3); padding: 1rem; border-radius: 8px; margin-bottom: 1rem; color: #a7f3d0; font-size: 0.9rem;">
-          ✔ <strong>Tudo pronto:</strong> O botão de compra já dispara a integração oficial para o gateway da BravoPay.
-        </div>
-        <p style="margin-bottom: 0.75rem;">Para vincular diretamente à sua oferta aberta no Microsoft Edge:</p>
-        <ol style="margin-left: 1.25rem; margin-bottom: 1rem; font-size: 0.88rem; display: flex; flex-direction: column; gap: 0.4rem;">
-          <li>Vá na sua aba do <strong>Microsoft Edge</strong> onde você está logado na <strong>BravoPay</strong>.</li>
-          <li>Copie o <strong>Link do Checkout da sua Oferta</strong>.</li>
-          <li>Cole esse link aqui no chat para conectarmos para você!</li>
-        </ol>
-      `;
-
-      btnManual.innerText = "Acessar Painel JurisPass (Modo Demonstração)";
-      btnManual.href = BRAVOPAY_CONFIG.urlPainelAcesso;
-      btnManual.target = "_self";
+      title.innerText = "Configuração do Gateway";
+      desc.innerText = "Parâmetros de pagamento.";
+      body.innerHTML = `<p>O link do checkout da BravoPay está configurado. Origem identificada: <strong>${origem}</strong>.</p><p style="margin-top:0.75rem">Clique no botão abaixo para prosseguir com segurança.</p>`;
+      btnManual.href = BRAVOPAY_CONFIG.checkoutVitalicio;
 
       modal.style.display = 'flex';
     }
 
-    /**
-     * Tratamento de falhas e quedas no gateway
-     */
-    function mostrarErroCheckout(erro) {
+    function mostrarErroCheckout(err) {
       const modal = document.getElementById('checkout-modal');
       const title = document.getElementById('modal-title');
+      const desc = document.getElementById('modal-desc');
       const body = document.getElementById('modal-body');
       const btnManual = document.getElementById('btn-manual-bravopay');
 
-      title.innerText = 'Instabilidade no Gateway';
-      body.innerHTML = `
-        <p>Houve uma falha ao conectar diretamente ao checkout da BravoPay. Isso pode ocorrer por bloqueador de pop-ups ou oscilação na rede.</p>
-        <p style="margin-top:0.5rem">Você pode tentar abrir a página de pagamento no botão abaixo ou tentar novamente em instantes.</p>
-      `;
-      btnManual.href = BRAVOPAY_CONFIG.checkoutUrl;
-      btnManual.innerText = "Tentar Abrir Checkout Novamente";
+      title.innerText = "Aviso de Redirecionamento";
+      desc.innerText = "Conexão com o Gateway";
+      body.innerHTML = `<p>Não foi possível redirecionar automaticamente. Você pode acessar diretamente pelo link seguro abaixo:</p>`;
+      btnManual.href = BRAVOPAY_CONFIG.checkoutVitalicio;
+
       modal.style.display = 'flex';
     }
 
     function fecharModal() {
       document.getElementById('checkout-modal').style.display = 'none';
     }
-
-    // Toggle FAQ Acordeão
-    function toggleFaq(elemento) {
-      const item = elemento.parentElement;
-      item.classList.toggle('active');
-    }
-
-    // Fechar modal ao clicar fora
-    window.addEventListener('click', (e) => {
-      const modal = document.getElementById('checkout-modal');
-      if (e.target === modal) fecharModal();
-    });
   </script>
 </body>
 </html>

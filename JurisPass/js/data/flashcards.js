@@ -1,4 +1,4 @@
-﻿    /* ==========================================================================
+/* ==========================================================================
        BANCO DE FLASHCARDS 3D (25 CARDS)
        ========================================================================== */
     const FLASHCARDS = [
@@ -41,3 +41,4 @@
       { categoria: 'Falência', pergunta: 'Qual a ordem legal de preferência de pagamentos dos credores concursais na falência?', resposta: '1º Trabalhistas (limitados a 150 salários mínimos por credor e acidentes de trabalho); 2º Garantia real (até o valor do bem); 3º Tributários; 4º Quirografários; 5º Subordinados.', fundamento: 'Art. 83 da Lei nº 11.101/2005' },
       { categoria: 'Legislação Especial', pergunta: 'O que mudou na Injúria Racial com a promulgação da Lei nº 14.532/2023?', resposta: 'A injúria racial foi inserida no Art. 2º-A da Lei nº 7.716/1989 e formalmente equiparada aos crimes de racismo, tornando-se crime IMPRESCRITÍVEL e INAFIANÇÁVEL com pena de 2 a 5 anos de reclusão!', fundamento: 'Lei nº 14.532/2023 e Art. 5º, XLII da CF/88' }
     ];
+window.FLASHCARDS = FLASHCARDS;

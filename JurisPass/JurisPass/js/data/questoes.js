@@ -1,4 +1,4 @@
-﻿    /* ==========================================================================
+/* ==========================================================================
        BANCO DE QUESTÕES ESTILO OAB (25 QUESTÕES)
        ========================================================================== */
     const QUESTOES = [
@@ -207,3 +207,4 @@
         comentarios: ['Incorreto: Apelação só cabe contra a sentença que denega/indefere a falência.', 'Incorreto: RESE é recurso de processo penal.', 'CORRETO! O Art. 100 da Lei nº 11.101/2005 dispõe textualmente: \"Da decisão que decreta a falência cabe agravo de instrumento; da sentença que julga a improcedência do pedido cabe apelação.\"', 'Incorreto: Há recurso próprio previsto na lei especial, não cabendo mandado de segurança substitutivo.']
       }
     ];
+window.QUESTOES = QUESTOES;

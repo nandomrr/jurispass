@@ -1,4 +1,4 @@
-﻿    /* ==========================================================================
+/* ==========================================================================
        MURAL DE MNEMÔNICOS (REGRAS E MACETES DA JANAINA)
        ========================================================================== */
     const MNEMONICOS = [
@@ -100,3 +100,4 @@
         regra: 'Prisão civil só cabe para as 3 prestações anteriores ao ajuizamento + as que vencerem durante o processo!\nDébitos mais antigos que 3 meses? Cobrança exclusivamente pelo rito da PENHORA de bens!'
       }
     ];
+window.MNEMONICOS = MNEMONICOS;

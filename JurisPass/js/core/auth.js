@@ -1,4 +1,4 @@
-    /* ==========================================================================
+/* ==========================================================================
        BASE DE DADOS DE USUÁRIOS & COMPRADORES AUTORIZADOS (SEGURANÇA JURISPASS)
        ========================================================================== */
     const DB_USUARIOS_KEY = 'jurispass_usuarios_db_v1';
@@ -47,7 +47,7 @@
       }
     ];
 
-    // Lista de e-mails de compradores autorizados que pagaram na Kiwify/Hotmart
+    // Lista de e-mails de compradores autorizados que pagaram na BravoPay
     // e têm autorização para ativar o primeiro acesso na aba "Criar Meu Acesso"
     const COMPRADORES_AUTORIZADOS_PADRAO = [
       { email: 'guirw@gmail.com', nome: 'Gui (Convidado)', plano: 'Master', orderId: 'PED-TESTE-GUI' },
@@ -252,7 +252,7 @@
       alert(
         "Central de Atendimento e Suporte JurisPass:\n\n" +
         "• Alunos matriculados: Utilize o mesmo e-mail e senha cadastrados no momento da compra.\n\n" +
-        "• Primeiro acesso: Se você comprou pela Kiwify ou Hotmart, clique na aba 'Criar Meu Acesso' utilizando o e-mail da compra.\n\n" +
+        "• Primeiro acesso: Se você comprou pela BravoPay, clique na aba 'Criar Meu Acesso' utilizando o e-mail da compra.\n\n" +
         "• Recuperação de acesso e dúvidas:\nEntre em contato pelo WhatsApp de suporte ou envie um e-mail para: suporte@jurispass.com.br"
       );
     };
@@ -361,13 +361,13 @@
         if (groupNome) groupNome.style.display = 'block';
         if (groupPlano) groupPlano.style.display = 'block';
         if (inputNome) inputNome.setAttribute('required', 'true');
-        if (labelEmail) labelEmail.textContent = 'SEU E-MAIL DA COMPRA (KIWIFY / HOTMART) *';
+        if (labelEmail) labelEmail.textContent = 'SEU E-MAIL DA COMPRA (BRAVOPAY) *';
         if (labelSenha) labelSenha.textContent = 'CRIE UMA SENHA DE ACESSO *';
         if (submitText) submitText.textContent = 'Ativar Cadastro e Acessar';
         if (title) title.textContent = 'Ative seu Acesso de Aluno';
         if (desc) desc.textContent = 'Informe seus dados de compra para criar sua senha pessoal e liberar o painel.';
         if (footerNote) {
-          footerNote.innerHTML = `Ainda não adquiriu? <a href="#/planos" onclick="fecharAuthModal()" style="color:var(--c-blue); text-decoration:underline">Ver planos de assinatura</a>`;
+          footerNote.innerHTML = `Precisa de ajuda ou suporte com seu acesso? <a href="javascript:void(0)" onclick="mostrarAjudaSuporte()" style="color:var(--tx-main); text-decoration:underline">Suporte aos Alunos</a>`;
         }
       }
     }
@@ -376,8 +376,8 @@
       const input = document.getElementById('auth-input-plano');
       if (input) input.value = plano;
       document.querySelectorAll('.auth-plan-pill').forEach(el => {
-        if (el.getAttribute('data-plano') === plano) el.classList.add('active');
-        else el.classList.remove('active');
+        if (el && typeof el.getAttribute === 'function' && el.getAttribute('data-plano') === plano) el.classList.add('active');
+        else if (el && el.classList) el.classList.remove('active');
       });
     }
 
@@ -647,7 +647,7 @@
         if (!pagamentoConfirmado) {
           return {
             success: false,
-            error: 'Pagamento não localizado para o e-mail "' + cleanEmail + '". O acesso é exclusivo para compradores da Kiwify ou Hotmart. Verifique o e-mail utilizado na compra ou entre em contato com o suporte.'
+            error: 'Pagamento não localizado para o e-mail "' + cleanEmail + '". O acesso é exclusivo para compradores da BravoPay. Verifique o e-mail utilizado na compra ou entre em contato com o suporte.'
           };
         }
 
@@ -942,10 +942,18 @@
       return Object.keys(STATE.vistos).filter(k => STATE.vistos[k]).length;
     }
 
+    window.getProgressoModulo = getProgressoModulo;
+    window.getProgressoMateria = getProgressoMateria;
+    window.getTotalTopicos = getTotalTopicos;
+    window.getTopicosVistosCount = getTopicosVistosCount;
+
     function navigate(hash) {
       location.hash = hash;
-      window.closeMobileSidebar();
+      if (typeof window.closeMobileSidebar === 'function') {
+        window.closeMobileSidebar();
+      }
     }
+    window.navigate = navigate;
 
     window.app = document.getElementById('app') || document.querySelector('main');
     var app = window.app;

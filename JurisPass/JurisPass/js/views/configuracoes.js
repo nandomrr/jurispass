@@ -1,4 +1,4 @@
-    /* ==========================================================================
+/* ==========================================================================
        ABA DE CONFIGURAÇÕES & PAINEL DE GESTÃO DE ALUNOS PAGOS
        ========================================================================== */
     let formNovoAlunoAberto = false;
@@ -14,7 +14,7 @@
       const totalBloqueados = todosAlunos.filter(u => u.status === 'bloqueado' || !u.pago).length;
       const whitelistCompradores = (typeof getCompradoresAutorizados === 'function') ? getCompradoresAutorizados() : [];
 
-      app.innerHTML = `
+      getViewContainer('view-configuracoes').innerHTML = `
         <div style="margin-bottom: 2rem;">
           <h2>Configurações do Sistema & Perfil</h2>
           <p style="margin-top:0.25rem">Ajuste o modo visual, dados da sua conta e gerencie os alunos autorizados com pagamento aprovado.</p>
@@ -137,7 +137,7 @@
                   + Cadastrar Novo Aluno Pago
                 </button>
                 <button type="button" class="btn-topic-action" style="height:38px; padding:0 1rem; font-size:0.85rem" onclick="toggleFormWhitelist()">
-                  + Autorizar E-mails Kiwify/Hotmart
+                  + Autorizar E-mails BravoPay
                 </button>
               </div>
             </div>
@@ -192,9 +192,9 @@
               </div>
             </div>
 
-            <!-- Formulário Retrátil: Autorizar E-mails da Kiwify / Hotmart (Whitelist) -->
+            <!-- Formulário Retrátil: Autorizar E-mails da BravoPay (Whitelist) -->
             <div id="form-whitelist-aluno" style="display:${formWhitelistAberto ? 'block' : 'none'}; background:var(--bg-surface-elevated); border:1px solid var(--c-purple); padding:1.25rem; border-radius:var(--radius-md); margin-bottom:1.5rem">
-              <h4 style="margin-bottom:0.4rem; color:var(--c-purple); font-size:1.05rem">Pré-Autorizar Compradores da Kiwify / Hotmart</h4>
+              <h4 style="margin-bottom:0.4rem; color:var(--c-purple); font-size:1.05rem">Pré-Autorizar Compradores da BravoPay</h4>
               <p style="font-size:0.83rem; color:var(--tx-muted); margin-bottom:1rem">Adicione os e-mails dos alunos que realizaram o pagamento. Quando eles abrirem o site e clicarem em "Criar Meu Acesso", o sistema reconhecerá a compra e permitirá criar a senha.</p>
               
               <div style="display:grid; grid-template-columns:2fr 1fr 1fr; gap:1rem; margin-bottom:1rem">
@@ -482,3 +482,5 @@
       showToast('Configurações salvas com sucesso!', 'success');
       renderConfiguracoes();
     };
+
+    window.renderConfiguracoes = renderConfiguracoes;

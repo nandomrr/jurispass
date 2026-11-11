@@ -1,4 +1,4 @@
-    /* ==========================================================================
+/* ==========================================================================
        ESTRUTURA DE DADOS COMPLETA DO FLUXOGRAMA DE RECURSOS (INTERATIVO)
        ========================================================================== */
     const NOS_FLUXOGRAMA = {
@@ -326,4 +326,4 @@
         proximosDesdobramentos: []
       }
     };
-
+window.NOS_FLUXOGRAMA = NOS_FLUXOGRAMA;

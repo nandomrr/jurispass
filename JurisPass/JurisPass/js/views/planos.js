@@ -1,4 +1,4 @@
-    /* ==========================================================================
+/* ==========================================================================
        ABA DE PLANOS: MINHA ASSINATURA & GESTÃO DO PLANO ATUAL
        (EXCLUSIVO DO ALUNO — SEM OPÇÃO DE UPGRADE OU DOWNGRADE)
        ========================================================================== */
@@ -63,7 +63,7 @@
         'Flashcards diários fundamentais'
       ];
 
-      app.innerHTML = `
+      getViewContainer('view-planos').innerHTML = `
         <div style="margin-bottom: 2rem;">
           <div class="status-island">
             <span class="status-badge" style="background:var(--c-emerald-glow); color:var(--c-emerald)">
@@ -323,3 +323,5 @@
         `Um e-mail de confirmação foi enviado para sua caixa de entrada.`
       );
     };
+
+    window.renderPlanos = renderPlanos;

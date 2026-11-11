@@ -1,4 +1,4 @@
-        /* ==========================================================================
+/* ==========================================================================
        CONFIGURAÇÃO NUVEM: GOOGLE FIREBASE
        ========================================================================== */
     const FIREBASE_CONFIG = {
@@ -76,7 +76,7 @@
       location.reload();
     };
 
-    /* Leitor de Parâmetros da Plataforma de Pagamento (Kiwify, Hotmart, Eduzz, Stripe, Braip, Kirvano) */
+    /* Leitor de Parâmetros da Plataforma de Pagamento (BravoPay, Pix) */
     function getUrlParams() {
       const searchParams = new URLSearchParams(window.location.search);
       let hashParams = new URLSearchParams();
@@ -157,12 +157,13 @@
     }
 
     function getQuotasPorPlano(plano) {
-      if (plano === 'Master') {
-        return { limite: 'Ilimitado', dias: 365 };
-      } else if (plano === 'Pro') {
-        return { limite: 1000, dias: 30 };
+      const p = (plano || '').toLowerCase();
+      if (p.includes('master') || p.includes('vitalicio') || p.includes('vitalício')) {
+        return { limite: 'Ilimitado', dias: 99999, labelDias: 'Acesso Vitalício' };
+      } else if (p.includes('pro') || p.includes('mensal')) {
+        return { limite: 1000, dias: 30, labelDias: '30 dias (renovação mensal)' };
       } else {
-        return { limite: 10, dias: 0 };
+        return { limite: 10, dias: 0, labelDias: '0 dias' };
       }
     }
 
@@ -182,3 +183,4 @@
         setTimeout(() => toast.remove(), 320);
       }, 3500);
     }
+    window.showToast = showToast;
